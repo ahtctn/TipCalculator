@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var vm: HomeViewModel
     var body: some View {
         ZStack {
             AnimatedBackgroundView()
-            Text("Calculator")
+            TipCalculatorView()
         }
+        .environmentObject(vm)
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView().environmentObject(HomeViewModel())
 }
+

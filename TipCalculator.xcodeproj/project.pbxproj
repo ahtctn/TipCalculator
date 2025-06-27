@@ -23,6 +23,12 @@
 		7B380AC52E0EDDFE002FF570 /* ImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B380AC42E0EDDFE002FF570 /* ImageHandler.swift */; };
 		7B380AC72E0EDE05002FF570 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B380AC62E0EDE05002FF570 /* ImageHelper.swift */; };
 		7B380AC92E0EDFE4002FF570 /* View+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B380AC82E0EDFE4002FF570 /* View+Shadow.swift */; };
+		7B8C98702E0F12CB00A66927 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C986F2E0F12CB00A66927 /* HeaderView.swift */; };
+		7B8C98792E0F135300A66927 /* TipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98762E0F135300A66927 /* TipButton.swift */; };
+		7B8C987A2E0F135300A66927 /* TipCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98772E0F135300A66927 /* TipCalculatorView.swift */; };
+		7B8C987E2E0F333600A66927 /* PhysicsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C987D2E0F333600A66927 /* PhysicsScene.swift */; };
+		7B8C98802E0F334C00A66927 /* TransparentSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C987F2E0F334C00A66927 /* TransparentSpriteView.swift */; };
+		7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98812E0F336700A66927 /* TipBubblePhysicsView.swift */; };
 		7BA63BC72E0ED9CE00C71918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */; };
 		7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */; };
 		7BDFA0B12E0EE601007E6E2D /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7BDFA0B02E0EE601007E6E2D /* AppIcon.icon */; };
@@ -45,6 +51,12 @@
 		7B380AC42E0EDDFE002FF570 /* ImageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHandler.swift; sourceTree = "<group>"; };
 		7B380AC62E0EDE05002FF570 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		7B380AC82E0EDFE4002FF570 /* View+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Shadow.swift"; sourceTree = "<group>"; };
+		7B8C986F2E0F12CB00A66927 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		7B8C98762E0F135300A66927 /* TipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipButton.swift; sourceTree = "<group>"; };
+		7B8C98772E0F135300A66927 /* TipCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculatorView.swift; sourceTree = "<group>"; };
+		7B8C987D2E0F333600A66927 /* PhysicsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsScene.swift; sourceTree = "<group>"; };
+		7B8C987F2E0F334C00A66927 /* TransparentSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentSpriteView.swift; sourceTree = "<group>"; };
+		7B8C98812E0F336700A66927 /* TipBubblePhysicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipBubblePhysicsView.swift; sourceTree = "<group>"; };
 		7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculatorApp.swift; sourceTree = "<group>"; };
 		7BBFD6052E0ED81B0027E938 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +77,7 @@
 		7B380A932E0EDA9A002FF570 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				7B8C98782E0F135300A66927 /* calculator */,
 				7B380AB52E0EDCEC002FF570 /* splash */,
 				7B380AB12E0EDCCC002FF570 /* homeview */,
 				7B380AA82E0EDB95002FF570 /* onboarding */,
@@ -133,6 +146,7 @@
 		7B380AA02E0EDB1A002FF570 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				7B8C986F2E0F12CB00A66927 /* HeaderView.swift */,
 				7B380ABA2E0EDD0F002FF570 /* AnimatedBackgroundView.swift */,
 				7B380AA12E0EDB1A002FF570 /* DefaultButton.swift */,
 			);
@@ -150,6 +164,7 @@
 		7B380AB12E0EDCCC002FF570 /* homeview */ = {
 			isa = PBXGroup;
 			children = (
+				7B8C987C2E0F333500A66927 /* physics */,
 				7B380AB22E0EDCD0002FF570 /* HomeView.swift */,
 			);
 			path = homeview;
@@ -181,6 +196,25 @@
 				7BDFA0B02E0EE601007E6E2D /* AppIcon.icon */,
 			);
 			path = image;
+			sourceTree = "<group>";
+		};
+		7B8C98782E0F135300A66927 /* calculator */ = {
+			isa = PBXGroup;
+			children = (
+				7B8C98762E0F135300A66927 /* TipButton.swift */,
+				7B8C98772E0F135300A66927 /* TipCalculatorView.swift */,
+			);
+			path = calculator;
+			sourceTree = "<group>";
+		};
+		7B8C987C2E0F333500A66927 /* physics */ = {
+			isa = PBXGroup;
+			children = (
+				7B8C98812E0F336700A66927 /* TipBubblePhysicsView.swift */,
+				7B8C987F2E0F334C00A66927 /* TransparentSpriteView.swift */,
+				7B8C987D2E0F333600A66927 /* PhysicsScene.swift */,
+			);
+			path = physics;
 			sourceTree = "<group>";
 		};
 		7BA63BC62E0ED9CE00C71918 /* TipCalculator */ = {
@@ -290,19 +324,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B380ABF2E0EDD4E002FF570 /* ColorHandler.swift in Sources */,
+				7B8C98702E0F12CB00A66927 /* HeaderView.swift in Sources */,
 				7B380AB32E0EDCD0002FF570 /* HomeView.swift in Sources */,
 				7B380AA22E0EDB1A002FF570 /* DefaultButton.swift in Sources */,
 				7B380A9C2E0EDAA7002FF570 /* HomeViewModel.swift in Sources */,
+				7B8C98792E0F135300A66927 /* TipButton.swift in Sources */,
+				7B8C987A2E0F135300A66927 /* TipCalculatorView.swift in Sources */,
 				7B380AA42E0EDB51002FF570 /* View+Dyn.swift in Sources */,
+				7B8C98802E0F334C00A66927 /* TransparentSpriteView.swift in Sources */,
 				7B380AC12E0EDD55002FF570 /* ColorHelper.swift in Sources */,
 				7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */,
 				7B380AB92E0EDCF8002FF570 /* LoadingSplashView.swift in Sources */,
 				7B380AA62E0EDB6A002FF570 /* Constants.swift in Sources */,
 				7B380AAA2E0EDB9C002FF570 /* OnboardingView.swift in Sources */,
+				7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */,
 				7B380AC52E0EDDFE002FF570 /* ImageHandler.swift in Sources */,
 				7B380AB72E0EDCEC002FF570 /* SplashView.swift in Sources */,
 				7B380ABB2E0EDD0F002FF570 /* AnimatedBackgroundView.swift in Sources */,
 				7B380AAD2E0EDBF1002FF570 /* HomeDelegate.swift in Sources */,
+				7B8C987E2E0F333600A66927 /* PhysicsScene.swift in Sources */,
 				7B380AAF2E0EDC22002FF570 /* SplashViewModel.swift in Sources */,
 				7B380AC92E0EDFE4002FF570 /* View+Shadow.swift in Sources */,
 				7B380AC72E0EDE05002FF570 /* ImageHelper.swift in Sources */,
@@ -443,11 +483,13 @@
 				DEVELOPMENT_TEAM = 29JJ8UZ48Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -474,11 +516,13 @@
 				DEVELOPMENT_TEAM = 29JJ8UZ48Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

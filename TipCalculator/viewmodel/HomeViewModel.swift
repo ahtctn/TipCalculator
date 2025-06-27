@@ -12,4 +12,6 @@ class HomeViewModel: ObservableObject {
     // MARK: - App State
     @Published var showOnboarding = !UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
     @Published var showRegister = !UserDefaults.standard.bool(forKey: "hasSeenRegister")
+    
+    @Published var settingsAppeared: Bool = false
 }
