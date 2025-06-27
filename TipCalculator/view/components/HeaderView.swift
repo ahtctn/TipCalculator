@@ -25,19 +25,20 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
-            HStack(spacing: dw(0.063)) {
+            HStack(spacing: dw(0.08)) {
                 ImageHandler.makeImage(.applogo)
-                    .frame(width: dw(0.063), height: dw(0.063))
+                    .frame(width: dw(0.08), height: dw(0.08))
                     .customShadow()
                 Text(name)
-                    .font(.system(size: 16, weight: .heavy))
+                    .font(.system(size: 22, weight: .heavy))
             }
             Spacer()
             Image(systemName: icon)
-                .frame(width: dw(0.063), height: dw(0.063))
+                .frame(width: dw(0.08), height: dw(0.08))
         }
         .foregroundStyle(ColorHandler.makeColor(.lightC))
         .padding(.horizontal)
+        .padding(.top, dw(0.05))
     }
 }
 

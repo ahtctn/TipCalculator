@@ -29,6 +29,7 @@
 		7B8C987E2E0F333600A66927 /* PhysicsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C987D2E0F333600A66927 /* PhysicsScene.swift */; };
 		7B8C98802E0F334C00A66927 /* TransparentSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C987F2E0F334C00A66927 /* TransparentSpriteView.swift */; };
 		7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98812E0F336700A66927 /* TipBubblePhysicsView.swift */; };
+		7B8C98842E0F364100A66927 /* Application+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98832E0F364100A66927 /* Application+Keyboard.swift */; };
 		7BA63BC72E0ED9CE00C71918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */; };
 		7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */; };
 		7BDFA0B12E0EE601007E6E2D /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7BDFA0B02E0EE601007E6E2D /* AppIcon.icon */; };
@@ -57,6 +58,7 @@
 		7B8C987D2E0F333600A66927 /* PhysicsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsScene.swift; sourceTree = "<group>"; };
 		7B8C987F2E0F334C00A66927 /* TransparentSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentSpriteView.swift; sourceTree = "<group>"; };
 		7B8C98812E0F336700A66927 /* TipBubblePhysicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipBubblePhysicsView.swift; sourceTree = "<group>"; };
+		7B8C98832E0F364100A66927 /* Application+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Application+Keyboard.swift"; sourceTree = "<group>"; };
 		7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculatorApp.swift; sourceTree = "<group>"; };
 		7BBFD6052E0ED81B0027E938 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 			children = (
 				7B380AA32E0EDB51002FF570 /* View+Dyn.swift */,
 				7B380AC82E0EDFE4002FF570 /* View+Shadow.swift */,
+				7B8C98832E0F364100A66927 /* Application+Keyboard.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */,
 				7B380AB92E0EDCF8002FF570 /* LoadingSplashView.swift in Sources */,
 				7B380AA62E0EDB6A002FF570 /* Constants.swift in Sources */,
+				7B8C98842E0F364100A66927 /* Application+Keyboard.swift in Sources */,
 				7B380AAA2E0EDB9C002FF570 /* OnboardingView.swift in Sources */,
 				7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */,
 				7B380AC52E0EDDFE002FF570 /* ImageHandler.swift in Sources */,
