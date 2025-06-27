@@ -25,7 +25,7 @@ import SpriteKit
 struct TipCalculatorView: View {
     @EnvironmentObject var vm: HomeViewModel
     @State private var totalAmount: Double = 45.54
-    @State private var totalText: String = "45.54"
+    @State private var totalText: String = "0"
     @State private var selectedPercent: Int? = nil
 
     var body: some View {
@@ -83,17 +83,23 @@ struct TipCalculatorView: View {
                                         .italic()
                                         .foregroundStyle(.white.opacity(0.7))
 
-                                    TextField("", text: $totalText)
-                                        .keyboardType(.decimalPad)
-                                        .multilineTextAlignment(.center)
-                                        .font(.system(size: 40, weight: .bold))
-                                        .foregroundStyle(.white)
-                                        .onChange(of: totalText) { newValue, _ in
-                                            let cleaned = newValue.replacingOccurrences(of: ",", with: ".")
-                                            if let value = Double(cleaned) {
-                                                totalAmount = value
+                                    HStack {
+                                        Text("$")
+                                            .font(.title2)
+                                            .italic()
+                                            .foregroundStyle(.white.opacity(0.7))
+                                        TextField("", text: $totalText)
+                                            .keyboardType(.decimalPad)
+                                            .multilineTextAlignment(.center)
+                                            .font(.system(size: 40, weight: .bold))
+                                            .foregroundStyle(.white)
+                                            .onChange(of: totalText) { newValue, _ in
+                                                let cleaned = newValue.replacingOccurrences(of: ",", with: ".")
+                                                if let value = Double(cleaned) {
+                                                    totalAmount = value
+                                                }
                                             }
-                                        }
+                                    }
                                 }
                             }
                         }
