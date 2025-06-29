@@ -15,5 +15,5 @@ enum Constants {
 }
 
 enum PW {
-    static let api_key = "appl_pvzHCTqkoMkHQtWkNTVcCmXKlJV"
+    static let api_key = "appl_NwmPaCrLkjksrbNWXJJbpwPqmgZ"
 }

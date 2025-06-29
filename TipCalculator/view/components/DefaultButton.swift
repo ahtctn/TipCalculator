@@ -18,19 +18,19 @@ struct DefaultButton: View {
                 Spacer()
                 Text(title)
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.green)
+                    .foregroundColor(ColorHandler.makeColor(.lightC))
                 Image(systemName: iconName)
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.green)
+                    .foregroundColor(ColorHandler.makeColor(.lightC))
                 Spacer()
             }
             .frame(width: dw(0.85), height: dw(0.15))
             .background(Color(.systemGray6))
             .cornerRadius(dw(0.07)) // height'in yarısı gibi olsun diye
-            .shadow(color: .green.opacity(0.3), radius: 6, x: 0, y: 4)
+            .shadow(color: ColorHandler.makeColor(.lightC).opacity(0.3), radius: 6, x: 0, y: 4)
             .overlay(
                 RoundedRectangle(cornerRadius: dw(0.07))
-                    .stroke(Color.green, lineWidth: 1.5)
+                    .stroke(ColorHandler.makeColor(.bg1), lineWidth: 1.5)
             )
         }
     }

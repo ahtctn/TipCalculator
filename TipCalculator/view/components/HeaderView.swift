@@ -13,13 +13,18 @@ struct HeaderView: View {
     
     var icon: String
     var act: () -> ()
+    var pro_act: () -> ()
     
     init(name: String = "Tip Calculator",
          icon: String = "gearshape",
-         act: @escaping () -> Void) {
+         act: @escaping () -> Void,
+         pro_act: @escaping () -> Void
+    )
+    {
         self.name = name
         self.icon = icon
         self.act = act
+        self.pro_act = pro_act
     }
     
     
@@ -33,6 +38,11 @@ struct HeaderView: View {
                     .font(.system(size: 22, weight: .heavy))
             }
             Spacer()
+            if AccessControlManager.shouldShowPaywall() {
+                ProButtonView {
+                    pro_act()
+                }
+            }
             Image(systemName: icon)
                 .frame(width: dw(0.08), height: dw(0.08))
         }
@@ -45,5 +55,5 @@ struct HeaderView: View {
 #Preview {
     HeaderView {
         
-    }
+    } pro_act: {}
 }

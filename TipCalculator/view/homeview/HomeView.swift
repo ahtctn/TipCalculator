@@ -15,6 +15,9 @@ struct HomeView: View {
             TipCalculatorView()
         }
         .environmentObject(vm)
+        .fullScreenCover(isPresented: $vm.paywallShown) {
+            PaywallView().environmentObject(vm)
+        }
     }
 }
 
