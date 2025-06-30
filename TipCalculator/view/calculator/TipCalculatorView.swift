@@ -12,6 +12,7 @@ import SpriteKit
 
 struct TipCalculatorView: View {
     @EnvironmentObject var vm: HomeViewModel
+    @StateObject private var adVM = AdViewModel()
     var body: some View {
         ZStack {
             AnimatedBackgroundView()
@@ -24,10 +25,8 @@ struct TipCalculatorView: View {
             .ignoresSafeArea()
             
             VStack(spacing: 20) {
-                HeaderView {
-                    vm.settingsAppeared = true
-                } pro_act: { vm.paywallShown = true }
-                
+                HeaderView { vm.settingsAppeared = true } pro_act: { vm.paywallShown = true } done_act: { }
+                bannerView
                 upperSectionView
                 
                 totalCircleView
@@ -38,6 +37,9 @@ struct TipCalculatorView: View {
         // Boş yere tıklayınca klavyeyi kapat
         .onTapGesture {
             vm.controlKeyboard()
+        }
+        .onAppear {
+            adVM.showAdIfReady()
         }
     }
 }
@@ -212,3 +214,19 @@ extension TipCalculatorView {
     TipCalculatorView().environmentObject(HomeViewModel())
 }
 
+extension TipCalculatorView {
+    private var bannerView: some View {
+        Group {
+            if AccessControlManager.shouldShowPaywall() {
+                HStack {
+                    Spacer()
+                    AdMobBannerView()
+                        .frame(height: 50)
+                    Spacer()
+                }
+            } else {
+                EmptyView()
+            }
+        }
+    }
+}

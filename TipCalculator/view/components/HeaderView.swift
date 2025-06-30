@@ -12,19 +12,29 @@ struct HeaderView: View {
     let name: String
     
     var icon: String
+    var isIconVisible: Bool
+    var isDoneButtonVisible: Bool
     var act: () -> ()
     var pro_act: () -> ()
+    var done_act: () -> ()
     
     init(name: String = "Tip Calculator",
          icon: String = "gearshape",
+         isIconV: Bool = true,
+         isDoneV: Bool = false,
          act: @escaping () -> Void,
-         pro_act: @escaping () -> Void
+         pro_act: @escaping () -> Void,
+         done_act: @escaping () -> Void
     )
     {
         self.name = name
         self.icon = icon
+        self.isIconVisible = isIconV
+        self.isDoneButtonVisible = isDoneV
         self.act = act
         self.pro_act = pro_act
+        self.done_act = done_act
+        
     }
     
     
@@ -43,8 +53,22 @@ struct HeaderView: View {
                     pro_act()
                 }
             }
-            Image(systemName: icon)
-                .frame(width: dw(0.08), height: dw(0.08))
+            if isIconVisible {
+                Button {
+                    act()
+                } label: {
+                    Image(systemName: icon)
+                        .frame(width: dw(0.08), height: dw(0.08))
+                        .foregroundStyle(ColorHandler.makeColor(.lightC))
+                }
+            }
+            
+            if isDoneButtonVisible {
+                Button("Done") {
+                    done_act()
+                }.foregroundStyle(ColorHandler.makeColor(.lightC))
+            }
+            
         }
         .foregroundStyle(ColorHandler.makeColor(.lightC))
         .padding(.horizontal)
@@ -55,5 +79,5 @@ struct HeaderView: View {
 #Preview {
     HeaderView {
         
-    } pro_act: {}
+    } pro_act: {} done_act: {}
 }

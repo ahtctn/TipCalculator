@@ -188,7 +188,7 @@ extension PaywallView {
                                     Text("\(introPrice)")
                                         .font(.system(size: 15))
                                         .padding(.all, dw(0.012))
-                                        .background(ColorHandler.makeColor(.bg1))
+                                        .background(ColorHandler.makeColor(.lightC))
                                         .cornerRadius(dw(0.0152))
                                 }
                             }

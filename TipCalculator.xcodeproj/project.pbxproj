@@ -45,6 +45,13 @@
 		7B8C98842E0F364100A66927 /* Application+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98832E0F364100A66927 /* Application+Keyboard.swift */; };
 		7BA63BC72E0ED9CE00C71918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */; };
 		7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */; };
+		7BD2B66C2E12830B00AF8621 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B66B2E12830B00AF8621 /* SettingsView.swift */; };
+		7BD2B66F2E128C3100AF8621 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 7BD2B66E2E128C3100AF8621 /* GoogleMobileAds */; };
+		7BD2B6712E128CA600AF8621 /* AdControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B6702E128CA600AF8621 /* AdControlManager.swift */; };
+		7BD2B6732E128CB400AF8621 /* AdEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B6722E128CB400AF8621 /* AdEnvironment.swift */; };
+		7BD2B6772E128D5900AF8621 /* AdMobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B6762E128D5900AF8621 /* AdMobBannerView.swift */; };
+		7BD2B67A2E12931A00AF8621 /* AdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B6792E12931A00AF8621 /* AdViewModel.swift */; };
+		7BD2B67C2E12933200AF8621 /* InterstitialAdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B67B2E12933200AF8621 /* InterstitialAdManager.swift */; };
 		7BDFA0B12E0EE601007E6E2D /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7BDFA0B02E0EE601007E6E2D /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +92,13 @@
 		7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculatorApp.swift; sourceTree = "<group>"; };
 		7BBFD6052E0ED81B0027E938 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BD2B66B2E12830B00AF8621 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7BD2B6702E128CA600AF8621 /* AdControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdControlManager.swift; sourceTree = "<group>"; };
+		7BD2B6722E128CB400AF8621 /* AdEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdEnvironment.swift; sourceTree = "<group>"; };
+		7BD2B6762E128D5900AF8621 /* AdMobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobBannerView.swift; sourceTree = "<group>"; };
+		7BD2B6782E1291F700AF8621 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7BD2B6792E12931A00AF8621 /* AdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewModel.swift; sourceTree = "<group>"; };
+		7BD2B67B2E12933200AF8621 /* InterstitialAdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdManager.swift; sourceTree = "<group>"; };
 		7BDFA0B02E0EE601007E6E2D /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BD2B66F2E128C3100AF8621 /* GoogleMobileAds in Frameworks */,
 				7B24C3E42E119A610004B98F /* RevenueCat in Frameworks */,
 				7B24C3E22E119A610004B98F /* ReceiptParser in Frameworks */,
 				7B24C3E62E119A610004B98F /* RevenueCatUI in Frameworks */,
@@ -123,6 +138,8 @@
 		7B380A932E0EDA9A002FF570 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				7BD2B6752E128D5800AF8621 /* ad */,
+				7BD2B66A2E1282FC00AF8621 /* settings */,
 				7B24C3F22E119B7C0004B98F /* terms */,
 				7B24C3EA2E119AA80004B98F /* paywall */,
 				7B8C98782E0F135300A66927 /* calculator */,
@@ -162,6 +179,7 @@
 		7B380A972E0EDA9A002FF570 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
+				7BD2B6792E12931A00AF8621 /* AdViewModel.swift */,
 				7B24C3ED2E119AD00004B98F /* PaywallViewModel.swift */,
 				7B380AAE2E0EDC22002FF570 /* SplashViewModel.swift */,
 				7B380A9B2E0EDAA7002FF570 /* HomeViewModel.swift */,
@@ -190,6 +208,9 @@
 		7B380A9A2E0EDA9A002FF570 /* manager */ = {
 			isa = PBXGroup;
 			children = (
+				7BD2B67B2E12933200AF8621 /* InterstitialAdManager.swift */,
+				7BD2B6702E128CA600AF8621 /* AdControlManager.swift */,
+				7BD2B6722E128CB400AF8621 /* AdEnvironment.swift */,
 				7B24C3DE2E119A320004B98F /* PurchaseManager.swift */,
 				7B24C3DA2E1199D20004B98F /* AccessControlManager.swift */,
 			);
@@ -275,6 +296,7 @@
 		7BA63BC62E0ED9CE00C71918 /* TipCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				7BD2B6782E1291F700AF8621 /* Info.plist */,
 				7B380A942E0EDA9A002FF570 /* helper */,
 				7B380A982E0EDA9A002FF570 /* extension */,
 				7B380A952E0EDA9A002FF570 /* source */,
@@ -305,6 +327,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7BD2B66A2E1282FC00AF8621 /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				7BD2B66B2E12830B00AF8621 /* SettingsView.swift */,
+			);
+			path = settings;
+			sourceTree = "<group>";
+		};
+		7BD2B6752E128D5800AF8621 /* ad */ = {
+			isa = PBXGroup;
+			children = (
+				7BD2B6762E128D5900AF8621 /* AdMobBannerView.swift */,
+			);
+			path = ad;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -325,6 +363,7 @@
 				7B24C3E12E119A610004B98F /* ReceiptParser */,
 				7B24C3E32E119A610004B98F /* RevenueCat */,
 				7B24C3E52E119A610004B98F /* RevenueCatUI */,
+				7BD2B66E2E128C3100AF8621 /* GoogleMobileAds */,
 			);
 			productName = TipCalculator;
 			productReference = 7BBFD6052E0ED81B0027E938 /* TipCalculator.app */;
@@ -356,6 +395,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				7B24C3E02E119A610004B98F /* XCRemoteSwiftPackageReference "purchases-ios" */,
+				7BD2B66D2E128C3100AF8621 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7BBFD6062E0ED81B0027E938 /* Products */;
@@ -384,11 +424,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BD2B66C2E12830B00AF8621 /* SettingsView.swift in Sources */,
 				7B380ABF2E0EDD4E002FF570 /* ColorHandler.swift in Sources */,
 				7B8C98702E0F12CB00A66927 /* HeaderView.swift in Sources */,
 				7B380AB32E0EDCD0002FF570 /* HomeView.swift in Sources */,
 				7B380AA22E0EDB1A002FF570 /* DefaultButton.swift in Sources */,
 				7B380A9C2E0EDAA7002FF570 /* HomeViewModel.swift in Sources */,
+				7BD2B6732E128CB400AF8621 /* AdEnvironment.swift in Sources */,
 				7B24C3EE2E119AD00004B98F /* PaywallViewModel.swift in Sources */,
 				7B24C3F62E119B8A0004B98F /* TermsOfUseView.swift in Sources */,
 				7B8C98792E0F135300A66927 /* TipButton.swift in Sources */,
@@ -406,17 +448,21 @@
 				7B8C98842E0F364100A66927 /* Application+Keyboard.swift in Sources */,
 				7B380AAA2E0EDB9C002FF570 /* OnboardingView.swift in Sources */,
 				7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */,
+				7BD2B67A2E12931A00AF8621 /* AdViewModel.swift in Sources */,
 				7B380AC52E0EDDFE002FF570 /* ImageHandler.swift in Sources */,
 				7B380AB72E0EDCEC002FF570 /* SplashView.swift in Sources */,
 				7B24C3F02E119AF00004B98F /* XMarkView.swift in Sources */,
 				7B380ABB2E0EDD0F002FF570 /* AnimatedBackgroundView.swift in Sources */,
 				7B24C3DF2E119A320004B98F /* PurchaseManager.swift in Sources */,
 				7B24C3EC2E119AA80004B98F /* PaywallView.swift in Sources */,
+				7BD2B6772E128D5900AF8621 /* AdMobBannerView.swift in Sources */,
 				7B380AAD2E0EDBF1002FF570 /* HomeDelegate.swift in Sources */,
 				7B24C3F42E119B7C0004B98F /* PrivacyPolicyView.swift in Sources */,
+				7BD2B67C2E12933200AF8621 /* InterstitialAdManager.swift in Sources */,
 				7B8C987E2E0F333600A66927 /* PhysicsScene.swift in Sources */,
 				7B380AAF2E0EDC22002FF570 /* SplashViewModel.swift in Sources */,
 				7B380AC92E0EDFE4002FF570 /* View+Shadow.swift in Sources */,
+				7BD2B6712E128CA600AF8621 /* AdControlManager.swift in Sources */,
 				7B380AC72E0EDE05002FF570 /* ImageHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,6 +601,7 @@
 				DEVELOPMENT_TEAM = 29JJ8UZ48Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TipCalculator/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -588,6 +635,7 @@
 				DEVELOPMENT_TEAM = 29JJ8UZ48Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TipCalculator/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -643,6 +691,14 @@
 				minimumVersion = 5.30.0;
 			};
 		};
+		7BD2B66D2E128C3100AF8621 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -660,6 +716,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7B24C3E02E119A610004B98F /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = RevenueCatUI;
+		};
+		7BD2B66E2E128C3100AF8621 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BD2B66D2E128C3100AF8621 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

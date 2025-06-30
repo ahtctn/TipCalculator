@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RevenueCat
+import GoogleMobileAds
 
 @main
 struct TipCalculatorApp: App {
@@ -23,6 +24,7 @@ struct TipCalculatorApp: App {
     private func initializer() {
         getPurchase()
         AccessControlManager.initializePromotionStatusIfNeeded()
+        MobileAds.shared.start(completionHandler: { _ in })
     }
     
     private func getPurchase() {
