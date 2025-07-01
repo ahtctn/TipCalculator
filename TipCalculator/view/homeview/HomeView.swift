@@ -13,10 +13,15 @@ struct HomeView: View {
         ZStack {
             AnimatedBackgroundView()
             TipCalculatorView()
+            bannerView
         }
+        
         .environmentObject(vm)
         .fullScreenCover(isPresented: $vm.paywallShown) {
             PaywallView().environmentObject(vm)
+        }
+        .fullScreenCover(isPresented: $vm.settingsAppeared) {
+            SettingsView().environmentObject(vm)
         }
     }
 }
@@ -25,3 +30,16 @@ struct HomeView: View {
     HomeView().environmentObject(HomeViewModel())
 }
 
+extension HomeView {
+    private var bannerView: some View {
+        Group {
+            if vm.bannerShown {
+                DefaultBannerView(anim: "warning", txt: "You need to add total firstly") {
+                    vm.bannerShown = false
+                }
+            } else {
+                EmptyView()
+            }
+        }
+    }
+}

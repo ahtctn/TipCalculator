@@ -5,8 +5,6 @@
 //  Created by Ahmet Ali ÇETİN on 27.06.2025.
 //
 
-
-
 import SwiftUI
 import SpriteKit
 
@@ -18,9 +16,18 @@ struct TipCalculatorView: View {
             AnimatedBackgroundView()
             
             // Bubble physics sahnesi
-            TipBubblePhysicsView { percent in
-                vm.bubblePercentAction(percent)
-            }
+            TipBubblePhysicsView(
+                onTap: { percent in
+                    if vm.totalText == "" {
+                        vm.bannerShown = true // 💯 Artık çalışacak
+                    } else {
+                        vm.bubblePercentAction(percent)
+                    }
+                },
+                isInteractionEnabled: vm.totalText != ""
+            )
+
+
             .background(Color.clear)
             .ignoresSafeArea()
             
@@ -28,9 +35,7 @@ struct TipCalculatorView: View {
                 HeaderView { vm.settingsAppeared = true } pro_act: { vm.paywallShown = true } done_act: { }
                 bannerView
                 upperSectionView
-                
                 totalCircleView
-                
                 Spacer()
             }
         }
@@ -57,7 +62,12 @@ extension TipCalculatorView {
     
     private var diceIcon: some View {
         Button {
-            vm.rollDice()
+            if vm.totalText == "" {
+                vm.bannerShown = true
+            } else {
+                vm.rollDice()
+            }
+            
         } label: {
             Image(systemName: "die.face.4")
                 .font(.title)
@@ -100,7 +110,11 @@ extension TipCalculatorView {
                     percentView
                 }
                     .padding(.horizontal, 8)
-            )
+            ).onTapGesture {
+                if vm.totalText == "" {
+                    vm.bannerShown = true
+                }
+            }
         
         
             .frame(height: dw(0.1526))
@@ -115,7 +129,7 @@ extension TipCalculatorView {
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
                 vm.updateCustomTipOnKeyboardHide()
             }
-            
+            .disabled(vm.totalText == "")
     }
     
     private var percentView: some View {

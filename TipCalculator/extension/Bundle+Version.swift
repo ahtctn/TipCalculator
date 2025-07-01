@@ -1,9 +1,28 @@
 //
-//  Bundle+Version.swift
+//  File.swift
 //  TipCalculator
 //
-//  Created by Ahmet Ali ÇETİN on 29.06.2025.
+//  Created by Ahmet Ali ÇETİN on 30.06.2025.
 //
+
+
+import Foundation
+
+// Bundle Extension for App Name and Version
+extension Bundle {
+    var appName: String {
+        return infoDictionary?["CFBundleName"] as? String ?? "Unknown App"
+    }
+    
+    var appVersion: String {
+        return infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+    }
+    
+    var appBuild: String {
+        return infoDictionary?["CFBundleVersion"] as? String ?? "1"
+    }
+}
+
 
 import Foundation
 

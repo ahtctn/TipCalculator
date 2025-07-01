@@ -28,7 +28,7 @@ class HomeViewModel: ObservableObject {
     
     @Published var paywallShown: Bool = false
     
-    
+    @Published var bannerShown: Bool = false
     
     
     

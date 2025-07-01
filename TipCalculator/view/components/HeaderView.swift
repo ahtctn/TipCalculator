@@ -40,7 +40,7 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
-            HStack(spacing: dw(0.08)) {
+            HStack(spacing: dw(0.04)) {
                 ImageHandler.makeImage(.applogo)
                     .frame(width: dw(0.08), height: dw(0.08))
                     .customShadow()
@@ -53,26 +53,31 @@ struct HeaderView: View {
                     pro_act()
                 }
             }
-            if isIconVisible {
-                Button {
-                    act()
-                } label: {
-                    Image(systemName: icon)
-                        .frame(width: dw(0.08), height: dw(0.08))
-                        .foregroundStyle(ColorHandler.makeColor(.lightC))
-                }
-            }
             
-            if isDoneButtonVisible {
-                Button("Done") {
-                    done_act()
-                }.foregroundStyle(ColorHandler.makeColor(.lightC))
+            HStack(spacing: dw(0.04)) {
+                if isIconVisible {
+                    Button {
+                        act()
+                    } label: {
+                        Image(systemName: icon)
+                            .frame(width: dw(0.08), height: dw(0.08))
+                            .foregroundStyle(ColorHandler.makeColor(.lightC))
+                    }
+                }
+                
+                if isDoneButtonVisible {
+                    Button {
+                        done_act()
+                    } label: {
+                        Text("Done").bold()
+                            .foregroundStyle(ColorHandler.makeColor(.lightC))
+                    }
+                }
             }
             
         }
         .foregroundStyle(ColorHandler.makeColor(.lightC))
-        .padding(.horizontal)
-        .padding(.top, dw(0.05))
+        .padding([.horizontal, .top], dw(0.05))
     }
 }
 
