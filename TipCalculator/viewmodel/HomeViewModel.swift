@@ -17,7 +17,7 @@ class HomeViewModel: ObservableObject {
     @Published var settingsAppeared: Bool = false
     @Published var baseAmount: Double = 0.0
     @Published var totalText: String = ""
-     
+    
     @Published var selectedPercent: Int? = nil
     @Published var tipPercent: Int = 0
     @Published var rollCount = 0
@@ -29,8 +29,9 @@ class HomeViewModel: ObservableObject {
     @Published var paywallShown: Bool = false
     
     @Published var bannerShown: Bool = false
+    @Published var presentGameBox: Bool = false
     
-    
+    @Published var lastTipAmount: Double = 0.0
     
     func rollDice() {
         customTipPercent = 0
@@ -38,19 +39,36 @@ class HomeViewModel: ObservableObject {
         toggleRandomTip()
     }
     
+    func applyGamePercent(_ percent: Int) {
+        // random/custom modları kapat
+        isRandomTipActive = false
+        customTipPercent = 0
+        customTipText = ""
+        
+        selectedPercent = percent
+        // hesap
+        let tip = baseAmount * Double(percent) / 100.0
+        lastTipAmount = tip
+        let result = baseAmount + tip
+        totalText = String(format: "%.2f", result)
+        
+        tipPercent = percent
+        print("🎰 GameBox %\(percent) → tip $\(String(format: "%.2f", tip)) | total \(totalText)")
+    }
+    
     
     func toggleRandomTip() {
         isRolling = true
         rollCount = 0
-
+        
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] timer in
             tipPercent = Int.random(in: 10...30)
             rollCount += 1
-
+            
             if rollCount == 10 {
                 timer.invalidate()
                 isRolling = false
-
+                
                 // ✅ Yeni random tip seçimi
                 selectedPercent = tipPercent
                 isRandomTipActive = true

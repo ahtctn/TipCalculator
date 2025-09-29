@@ -11,6 +11,8 @@ import SpriteKit
 struct TipCalculatorView: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject private var adVM = AdViewModel()
+     
+
     var body: some View {
         ZStack {
             AnimatedBackgroundView()
@@ -33,9 +35,12 @@ struct TipCalculatorView: View {
             
             VStack(spacing: 20) {
                 HeaderView { vm.settingsAppeared = true } pro_act: { vm.paywallShown = true } done_act: { }
-                bannerView
+                //bannerView
                 upperSectionView
                 totalCircleView
+                
+                gameboxView
+
                 Spacer()
             }
         }
@@ -44,8 +49,13 @@ struct TipCalculatorView: View {
             vm.controlKeyboard()
         }
         .onAppear {
-            adVM.showAdIfReady()
+            //adVM.showAdIfReady()
+        } 
+        .fullScreenCover(isPresented: $vm.presentGameBox) {
+            GameBoxView()
+                .environmentObject(vm)
         }
+
     }
 }
 //MARK: Dice
@@ -94,6 +104,25 @@ extension TipCalculatorView {
             diceIcon
             
             percentSection
+        }
+    }
+    
+    private var gameboxView: some View {
+        Button {
+            if vm.totalText == "" {
+                vm.bannerShown = true // 💯 Artık çalışacak
+            } else {
+                vm.presentGameBox = true
+            }
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "gamecontroller.fill").imageScale(.large)
+                Text("Game Box").bold()
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(.ultraThinMaterial, in: Capsule())
+            .foregroundStyle(Color.orange)
         }
     }
 }

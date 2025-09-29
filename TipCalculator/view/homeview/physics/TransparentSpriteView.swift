@@ -8,18 +8,22 @@
 import UIKit
 import SwiftUI
 import SpriteKit
+ 
 
 struct TransparentSpriteView: UIViewRepresentable {
     let scene: SKScene
-    
+
     func makeUIView(context: Context) -> SKView {
-        let skView = SKView(frame: UIScreen.main.bounds)
-        skView.backgroundColor = .clear
-        skView.allowsTransparency = true
-        skView.presentScene(scene)
-        return skView
+        let view = SKView()
+        view.allowsTransparency = true       // 🔥 kritik
+        view.ignoresSiblingOrder = true
+        view.presentScene(scene)
+        return view
     }
-    
-    
-    func updateUIView(_ uiView: SKView, context: Context) {}
+
+    func updateUIView(_ view: SKView, context: Context) {
+        if view.scene !== scene {
+            view.presentScene(scene)
+        }
+    }
 }

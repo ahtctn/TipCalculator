@@ -15,7 +15,7 @@ class AdViewModel: ObservableObject {
 
     init() {
         adManager.loadAd()
-        startAdTimer()
+        //startAdTimer()
     }
 
     private func startAdTimer() {

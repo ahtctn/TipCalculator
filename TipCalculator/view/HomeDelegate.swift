@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeDelegate: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject private var splashVM = SplashViewModel()
+    
     var body: some View {
         Group {
             switch splashVM.isAppReady {
@@ -17,7 +18,6 @@ struct HomeDelegate: View {
                 if vm.showOnboarding {
                     OnboardingView()
                         .environmentObject(vm)
-                    
                 } else {
                     HomeView()
                         .environmentObject(vm)
@@ -33,4 +33,5 @@ struct HomeDelegate: View {
 
 #Preview {
     HomeDelegate()
+        .environmentObject(HomeViewModel()) // Preview’da hata almamak için
 }
