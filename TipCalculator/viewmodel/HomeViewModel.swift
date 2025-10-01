@@ -33,10 +33,28 @@ class HomeViewModel: ObservableObject {
     
     @Published var lastTipAmount: Double = 0.0
     
+    @Published var peopleCount: Int = 1
+    @Published var expandSplit: Bool = false
+    @Published var showCustomPeople: Bool = false
+    @Published var customPeopleText: String = "4"
+    
+    let currency = Locale.current.currencySymbol ?? "$"
+    
+    func trimmedMoney(_ value: Double) -> String {
+        guard value.isFinite else { return "—" }
+        let intPart = Int(value)
+        return (value == Double(intPart)) ? "\(intPart)" : String(format: "%.2f", value)
+    }
+    
     func rollDice() {
         customTipPercent = 0
         customTipText = ""
         toggleRandomTip()
+    }
+    func showGameBox() {
+        presentGameBox = true
+        isRandomTipActive = false
+        resetRandomTip()
     }
     
     func applyGamePercent(_ percent: Int) {

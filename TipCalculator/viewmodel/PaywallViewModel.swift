@@ -17,8 +17,7 @@ class PaywallViewModel: ObservableObject {
     
     @Published var isPremium: Bool = false
     
-    @Published var selectedProductID: String = "rc_1299_lifetime"
-
+    @Published var selectedProductID: String = "tip_yearly_2499"
     @Published var isPurchasing: Bool = false
     @Published var availableProducts: [StoreProduct] = []
     
@@ -42,11 +41,6 @@ class PaywallViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        purchaseManager.$availableProducts
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.availableProducts, on: self)
-                .store(in: &cancellables)
-        
     }
     
     func pwAppeared() {
@@ -62,25 +56,23 @@ class PaywallViewModel: ObservableObject {
     }
     
     func startFetchingPackages() {
+        // İlk önce fetchOfferings çağırıyoruz
         self.fetchOfferings()
         
+        // Timer başlat, her 0.1 saniyede bir çalıştır
         fetchTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
             guard let self = self else { return }
-
+            
+            // Yeniden paketleri çek
             self.fetchOfferings()
-
-            if let firstProduct = self.availableProducts.first {
-                self.selectedProductID = firstProduct.productIdentifier
-                print("🎯 Default seçilen ürün ID: \(firstProduct.productIdentifier)")
-            }
-
+            
+            // Eğer paketler yüklendiyse Timer'ı durdur
             if !self.availableProducts.isEmpty {
-                print("✅ Paketler bulundu, Timer durduruldu.")
+                print("Paketler yüklendi, Timer durduruluyor.")
                 timer.invalidate()
             }
         }
     }
-
     
     func purchaseProduct(productID: String, completion: ((Bool) -> Void)? = nil) {
         purchaseManager.purchaseProduct(productID: productID) { success in

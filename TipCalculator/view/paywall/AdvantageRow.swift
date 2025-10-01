@@ -4,8 +4,7 @@
 //
 //  Created by Ahmet Ali ÇETİN on 29.06.2025.
 //
-
-
+  
 import SwiftUI
 
 struct AdvantageRow: View {
@@ -13,21 +12,26 @@ struct AdvantageRow: View {
     let title: String
     let subtitle: String
     
+    let c1: Color
+    let c2: Color
+    
     var body: some View {
         HStack(alignment: .center, spacing: dw(0.04)) {
             Image(systemName: iconName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: dw(0.05), height: dw(0.05))
-                .foregroundStyle(ColorHandler.makeColor(.lightC))
+                .foregroundStyle(
+                    LinearGradient(colors: [c1, c2], startPoint: .bottom, endPoint: .top)
+                )
             
             VStack(alignment: .leading, spacing: dw(0.012)) {
                 Text(title)
-                    .font(.system(size: 17))
+                    .font(.system(size: 14))
                     .foregroundStyle(Color.white)
                 
                 Text(subtitle)
-                    .font(.system(size: 15))
+                    .font(.system(size: 14))
                     .foregroundStyle(Color.white.opacity(0.7))
             }
         }

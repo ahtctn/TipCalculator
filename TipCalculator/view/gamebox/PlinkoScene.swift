@@ -21,7 +21,14 @@ class PlinkoScene: SKScene, SKPhysicsContactDelegate {
     
     // Slot → gösterilecek yüzde metni
     private let boxPercents = ["%10", "%15", "%25", "%50"]
-    
+    // Konfeti renk paleti
+    private let confettiColors: [SKColor] = [
+        .systemPink, .systemYellow, .systemBlue, .systemGreen, .white
+    ]
+
+    // Çok sık tetiklenmesin diye basit debounce
+    private var lastConfettiTime: CFTimeInterval = 0
+
     func bootIfNeeded() {
         guard !hasBooted else { return }
         hasBooted = true
@@ -77,7 +84,8 @@ class PlinkoScene: SKScene, SKPhysicsContactDelegate {
         body.allowsRotation = true
         body.categoryBitMask = 0b01
         body.collisionBitMask = 0xFFFFFFFF
-        body.contactTestBitMask = 0b10        // box floor ile teması dinle
+        body.contactTestBitMask = 0b10 | 0b100   // box floor + pin
+
         
         ball.physicsBody = body
         addChild(ball)
@@ -134,7 +142,10 @@ class PlinkoScene: SKScene, SKPhysicsContactDelegate {
                 pb.isDynamic = false
                 pb.restitution = 0.0
                 pb.friction = 0.0
+                pb.categoryBitMask = 0b100
+                pb.contactTestBitMask = 0b01
                 pin.physicsBody = pb
+                pin.name = "pin"
                 
                 addChild(pin)
             }
@@ -145,33 +156,31 @@ class PlinkoScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: - Realistic open-mouth boxes
     private func addRealisticBoxes() {
-        let ratios: [CGFloat] = [0.2, 0.2, 0.3, 0.3]
         let wallThickness: CGFloat = 8
         let boxHeight: CGFloat = 72
         let corner: CGFloat = 14
         
-        let strokes: [SKColor] = [
-            .systemBlue, .systemGreen, .systemYellow, .systemPink
-        ]
-        let fills: [SKColor] = [
-            .systemBlue.withAlphaComponent(0.15),
-            .systemGreen.withAlphaComponent(0.15),
-            .systemYellow.withAlphaComponent(0.15),
-            .systemPink.withAlphaComponent(0.15)
+        // Kutuların oranlarını yüzdeye göre eşleştir
+        // %10 → 0.35 (en büyük), %15 → 0.25, %25 → 0.2, %50 → 0.2 (en küçük)
+        let config: [(percent: String, ratio: CGFloat, stroke: SKColor, fill: SKColor)] = [
+            ("%10", 0.35, .systemBlue, .systemBlue.withAlphaComponent(0.15)),
+            ("%15", 0.25, .systemGreen, .systemGreen.withAlphaComponent(0.15)),
+            ("%25", 0.20, .systemYellow, .systemYellow.withAlphaComponent(0.15)),
+            ("%50", 0.20, .systemPink, .systemPink.withAlphaComponent(0.15))
         ]
         
         var xOffset: CGFloat = 0
         
-        for (i, ratio) in ratios.enumerated() {
-            let width = size.width * ratio
+        for (i, item) in config.enumerated() {
+            let width = size.width * item.ratio
             let centerX = xOffset + width / 2
             let floorY: CGFloat = boxHeight / 2
             
             // Panel
             let bodyRect = SKShapeNode(rectOf: CGSize(width: width, height: boxHeight + 12), cornerRadius: corner)
             bodyRect.position = CGPoint(x: centerX, y: floorY + (boxHeight / 2))
-            bodyRect.fillColor = fills[i]
-            bodyRect.strokeColor = strokes[i]
+            bodyRect.fillColor = item.fill
+            bodyRect.strokeColor = item.stroke
             bodyRect.lineWidth = 2
             bodyRect.zPosition = 2
             bodyRect.glowWidth = 4
@@ -203,9 +212,9 @@ class PlinkoScene: SKScene, SKPhysicsContactDelegate {
             rightWall.physicsBody = rb
             addChild(rightWall)
             
-            // Label (bold & tek sefer)
-            let label = SKLabelNode(text: boxPercents[i])
-            label.fontName = ".SFUI-Bold"
+            // Label
+            let label = SKLabelNode(text: item.percent)
+            label.fontName = "SFProRounded-Bold"
             label.fontSize = 22
             label.horizontalAlignmentMode = .center
             label.verticalAlignmentMode = .center
@@ -217,41 +226,107 @@ class PlinkoScene: SKScene, SKPhysicsContactDelegate {
             xOffset += width
         }
     }
-    
+
     // MARK: - Contact
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node,
               let nodeB = contact.bodyB.node else { return }
+
+        let nameA = nodeA.name ?? ""
+        let nameB = nodeB.name ?? ""
+
         
-        let names = [nodeA.name ?? "", nodeB.name ?? ""]
+        if (nameA == "ball" && nameB == "pin") || (nameB == "ball" && nameA == "pin") {
+            Haptics.shared.tickPin()
+            burstConfetti(at: contact.contactPoint, count: 10)
+        }
+
+
+        // === Kutu tabanına iniş
+        let names = [nameA, nameB]
         guard names.contains("ball"),
               let boxName = names.first(where: { $0.hasPrefix("box") }) else { return }
-        
+
+        // 3 kısa titreşim
+        Haptics.shared.tripleOnBox()
+
         dropTimeoutWorkItem?.cancel()
-        
-        let ball = (nodeA.name == "ball") ? nodeA : nodeB
+
+        let ball = (nameA == "ball") ? nodeA : nodeB
         if let pb = ball.physicsBody {
             pb.velocity = .zero
             pb.angularVelocity = 0
             pb.linearDamping = 10
             pb.restitution = 0
         }
-        
-        // Hangi kutu → hangi yüzde
+
         if let idxStr = boxName.dropFirst(3) as Substring?,
            let idx = Int(idxStr), idx >= 0, idx < boxPercents.count {
             let text = boxPercents[idx]
             bridge?.landingText = text
-            bridge?.landingPercent = [10, 15, 25, 50][idx]   // 🔥 numeric yüzde
+            bridge?.landingPercent = [10, 15, 25, 50][idx]
         }
-        
-        // Topu kaldır (kutuda bırakmak istersen burayı yorumla)
+
         ball.removeFromParent()
-        
         hasActiveBall = false
         activeBallNode = nil
         bridge?.isBallActive = false
-        
+
         print("🎯 Top düştü: \(boxName)")
+    }
+
+    func burstConfetti(at point: CGPoint, count: Int = 12) {
+        let now = CACurrentMediaTime()
+        // aşırı spam'i engelle (örn. 25ms)
+        guard now - lastConfettiTime > 0.025 else { return }
+        lastConfettiTime = now
+
+        // Parent node (kolay temizlemek için)
+        let container = SKNode()
+        container.position = point
+        container.zPosition = 999 // üstte dursun
+        addChild(container)
+
+        for _ in 0..<count {
+            // Kare konfeti (mini parça)
+            let size = CGFloat.random(in: 3...6)
+            let piece = SKShapeNode(rectOf: CGSize(width: size, height: size), cornerRadius: 0.8)
+            piece.fillColor = confettiColors.randomElement() ?? .white
+            piece.strokeColor = .clear
+            piece.zRotation = CGFloat.random(in: 0...(CGFloat.pi))
+            piece.alpha = 1.0
+
+            // Başlangıç pozisyonuna hafif jitter
+            piece.position = CGPoint(
+                x: CGFloat.random(in: -3...3),
+                y: CGFloat.random(in: -3...3)
+            )
+
+            container.addChild(piece)
+
+            // Rastgele sıçrama vektörü (yukarı ağırlıklı)
+            let dx = CGFloat.random(in: -110...110)
+            let dy = CGFloat.random(in: 60...160)
+
+            // Hareket (1.0 sn), rotasyon ve küçülme
+            let move = SKAction.moveBy(x: dx, y: dy, duration: 1.0)
+            move.timingMode = .easeOut   // hareketi canlı gözüksün
+
+            let rotate = SKAction.rotate(byAngle: CGFloat.random(in: -2...2), duration: 1.0)
+
+            let scale = SKAction.scale(to: 0.4, duration: 1.0)
+            scale.timingMode = .easeIn   // kapanışta “içe” doğru
+
+            // İstenen: 1 sn'de ease-in ile görünmez olsun
+            let fade = SKAction.fadeOut(withDuration: 1.0)
+            fade.timingMode = .easeIn
+
+            // Hepsini birlikte çalıştır
+            let group = SKAction.group([move, rotate, scale, fade])
+            piece.run(.sequence([group, .removeFromParent()]))
+        }
+
+        // Container’ı da en geç 1.2s sonra kaldır
+        container.run(.sequence([.wait(forDuration: 1.2), .removeFromParent()]))
     }
 }

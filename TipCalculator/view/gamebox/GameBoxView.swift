@@ -30,7 +30,6 @@ struct GameBoxView: View {
             countdownSection
             dropButtonSection
             totalBadgeSection
-            xmarkSection
         }
         .animation(.spring(response: 0.35, dampingFraction: 0.9), value: bridge.landingText)
         .animation(.spring(response: 0.35, dampingFraction: 0.9), value: countdown)
@@ -59,10 +58,6 @@ struct GameBoxView: View {
                 animatedTotal = target
             }
         }
-        
-        
-
-
     }
     
     private var buttonTitle: String {
@@ -128,14 +123,8 @@ struct GameBoxView: View {
 
 extension GameBoxView {
     private var xmarkSection: some View {
-        VStack {
-            HStack {
-                XMarkView {
-                    homeVM.presentGameBox = false
-                }
-                Spacer()
-            }
-            Spacer()
+        XMarkView {
+            homeVM.presentGameBox = false
         }
         .zIndex(2)
     }
@@ -150,6 +139,7 @@ extension GameBoxView {
     private var totalBadgeSection: some View {
         VStack {
             HStack {
+                xmarkSection
                 Spacer()
                 HStack(spacing: 6) {
                     Text("TOTAL")
@@ -157,9 +147,10 @@ extension GameBoxView {
                         .foregroundStyle(.yellow.opacity(0.9))
 
                     Text(homeVM.totalText.isEmpty ? "$0.00" : homeVM.totalText)
-                        .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        .monospacedDigit()
-                        .foregroundStyle(.white)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 12)
@@ -281,7 +272,8 @@ extension GameBoxView {
             } label: {
                 HStack(spacing: 8) {
                     Image(systemName: "play.circle.fill").imageScale(.large)
-                    Text(buttonTitle).bold()
+                    Text(buttonTitle)
+                        .font(.system(size: 14, weight: .bold))
                 }
                 .padding(.horizontal, 18)
                 .padding(.vertical, 10)
@@ -289,7 +281,9 @@ extension GameBoxView {
             }
             .disabled(bridge.isBallActive || countdown != nil)
             .padding(.bottom, 24)
+            .foregroundStyle(.orange)
             Spacer()
         }
+        .padding(dw(0.035))
     }
 }
