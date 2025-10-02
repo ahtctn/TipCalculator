@@ -7,13 +7,12 @@
 
 import SwiftUI
 import SpriteKit
+import Lottie
 
 struct TipCalculatorView: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject private var adVM = AdViewModel()
      
-     
-
     var body: some View {
         ZStack {
             AnimatedBackgroundView()
@@ -50,6 +49,12 @@ struct TipCalculatorView: View {
                     .transition(.opacity.combined(with: .scale))
                     .zIndex(999)
             }
+            
+            if vm.showTipSavedSection {
+                TipSavedSection()
+                    .environmentObject(vm)
+            }
+
         }
         // Boş yere tıklayınca klavyeyi kapat
         .onTapGesture {
@@ -108,8 +113,7 @@ extension TipCalculatorView {
             .disabled(vm.isRolling)
         }
     }
-
-    
+   
     private var gameboxView: some View {
         Button {
             if vm.totalText == "" {
@@ -181,11 +185,37 @@ extension TipCalculatorView {
         HStack {
             randomTipSection
             Spacer()
+            calculateButton
+            Spacer()
             splitBillSection
             
         }
         .padding(.horizontal)
     }
+    
+    private var calculateButton: some View {
+        Button {
+            if vm.totalText.isEmpty {
+                vm.bannerShown = true
+            } else {
+                vm.showTipSavedSection = true
+            }
+            
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "checkmark.seal.fill")
+                    .imageScale(.medium)
+                Text("Tip")
+                    .font(.headline.weight(.semibold))
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .background(Color.white.opacity(0.12), in: Capsule())
+            .foregroundStyle(.white)
+            .shadow(radius: 8, y: 4)
+        }
+    }
+
 }
 
 //MARK: Total Circle View

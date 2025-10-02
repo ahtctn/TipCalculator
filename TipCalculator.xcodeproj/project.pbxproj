@@ -43,6 +43,10 @@
 		7B380AC92E0EDFE4002FF570 /* View+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B380AC82E0EDFE4002FF570 /* View+Shadow.swift */; };
 		7B6CF44C2E8C1C120012B223 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6CF44B2E8C1C120012B223 /* Haptics.swift */; };
 		7B6CF44E2E8C29520012B223 /* AngryHeadShakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6CF44D2E8C29520012B223 /* AngryHeadShakeView.swift */; };
+		7B724AF02E8ED5940016D4BA /* TipCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B724AEF2E8ED5940016D4BA /* TipCoreDataManager.swift */; };
+		7B724AF22E8ED5A00016D4BA /* TipEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B724AF12E8ED5A00016D4BA /* TipEntity.swift */; };
+		7B724AF42E8ED5A70016D4BA /* TipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B724AF32E8ED5A70016D4BA /* TipModel.swift */; };
+		7B724AF62E8ED5FF0016D4BA /* TipSavedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B724AF52E8ED5FF0016D4BA /* TipSavedSection.swift */; };
 		7B8C98702E0F12CB00A66927 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C986F2E0F12CB00A66927 /* HeaderView.swift */; };
 		7B8C98792E0F135300A66927 /* TipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98762E0F135300A66927 /* TipButton.swift */; };
 		7B8C987A2E0F135300A66927 /* TipCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98772E0F135300A66927 /* TipCalculatorView.swift */; };
@@ -111,6 +115,10 @@
 		7B380AC82E0EDFE4002FF570 /* View+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Shadow.swift"; sourceTree = "<group>"; };
 		7B6CF44B2E8C1C120012B223 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		7B6CF44D2E8C29520012B223 /* AngryHeadShakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngryHeadShakeView.swift; sourceTree = "<group>"; };
+		7B724AEF2E8ED5940016D4BA /* TipCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCoreDataManager.swift; sourceTree = "<group>"; };
+		7B724AF12E8ED5A00016D4BA /* TipEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipEntity.swift; sourceTree = "<group>"; };
+		7B724AF32E8ED5A70016D4BA /* TipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipModel.swift; sourceTree = "<group>"; };
+		7B724AF52E8ED5FF0016D4BA /* TipSavedSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSavedSection.swift; sourceTree = "<group>"; };
 		7B8C986F2E0F12CB00A66927 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		7B8C98762E0F135300A66927 /* TipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipButton.swift; sourceTree = "<group>"; };
 		7B8C98772E0F135300A66927 /* TipCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculatorView.swift; sourceTree = "<group>"; };
@@ -261,6 +269,8 @@
 		7B380A992E0EDA9A002FF570 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				7B724AF32E8ED5A70016D4BA /* TipModel.swift */,
+				7B724AF12E8ED5A00016D4BA /* TipEntity.swift */,
 				7BD2B69C2E12D2DA00AF8621 /* OnboardingModel.swift */,
 				7BD2B6832E12B48900AF8621 /* SupportEmail.swift */,
 			);
@@ -270,6 +280,7 @@
 		7B380A9A2E0EDA9A002FF570 /* manager */ = {
 			isa = PBXGroup;
 			children = (
+				7B724AEF2E8ED5940016D4BA /* TipCoreDataManager.swift */,
 				7B6CF44B2E8C1C120012B223 /* Haptics.swift */,
 				7BD2B69E2E12D30600AF8621 /* LottieAnimationManager.swift */,
 				7BD2B6932E12B83200AF8621 /* RateHelper.swift */,
@@ -310,6 +321,7 @@
 		7B380AB12E0EDCCC002FF570 /* homeview */ = {
 			isa = PBXGroup;
 			children = (
+				7B724AF52E8ED5FF0016D4BA /* TipSavedSection.swift */,
 				7B8C987C2E0F333500A66927 /* physics */,
 				7B380AB22E0EDCD0002FF570 /* HomeView.swift */,
 			);
@@ -526,6 +538,7 @@
 				7B8C987A2E0F135300A66927 /* TipCalculatorView.swift in Sources */,
 				7B380AA42E0EDB51002FF570 /* View+Dyn.swift in Sources */,
 				7B24C3F82E119C110004B98F /* AdvantageRow.swift in Sources */,
+				7B724AF42E8ED5A70016D4BA /* TipModel.swift in Sources */,
 				7BD2B6942E12B83200AF8621 /* RateHelper.swift in Sources */,
 				7B8C98802E0F334C00A66927 /* TransparentSpriteView.swift in Sources */,
 				7B380AC12E0EDD55002FF570 /* ColorHelper.swift in Sources */,
@@ -535,15 +548,18 @@
 				7BD2B69F2E12D30600AF8621 /* LottieAnimationManager.swift in Sources */,
 				7B380AB92E0EDCF8002FF570 /* LoadingSplashView.swift in Sources */,
 				7BD2B6862E12B4B600AF8621 /* UIDevice+AppModel.swift in Sources */,
+				7B724AF02E8ED5940016D4BA /* TipCoreDataManager.swift in Sources */,
 				7BD2B6802E1297BB00AF8621 /* BannerPaywallView.swift in Sources */,
 				7BD2B68C2E12B52200AF8621 /* Bundle+Version.swift in Sources */,
 				7BD2B69D2E12D2DA00AF8621 /* OnboardingModel.swift in Sources */,
 				7B380AA62E0EDB6A002FF570 /* Constants.swift in Sources */,
+				7B724AF22E8ED5A00016D4BA /* TipEntity.swift in Sources */,
 				7B6CF44C2E8C1C120012B223 /* Haptics.swift in Sources */,
 				7B24C3D92E1199540004B98F /* ProButtonView.swift in Sources */,
 				7BD2B6902E12B6FB00AF8621 /* ShareManager.swift in Sources */,
 				7B8C98842E0F364100A66927 /* Application+Keyboard.swift in Sources */,
 				7B380AAA2E0EDB9C002FF570 /* OnboardingView.swift in Sources */,
+				7B724AF62E8ED5FF0016D4BA /* TipSavedSection.swift in Sources */,
 				7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */,
 				7BD2B67A2E12931A00AF8621 /* AdViewModel.swift in Sources */,
 				7B380AC52E0EDDFE002FF570 /* ImageHandler.swift in Sources */,

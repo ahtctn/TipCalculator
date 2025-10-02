@@ -40,6 +40,12 @@ class HomeViewModel: ObservableObject {
     
     let currency = Locale.current.currencySymbol ?? "$"
     
+    
+    ///MARK: CORE DATA
+    @Published var showTipSavedSection: Bool = false
+    @Published var tipSavedTitleDraft: String = ""   // TipSavedSection'daki TextField için
+    @Published var lastSavedTipID: UUID? = nil
+    
     func trimmedMoney(_ value: Double) -> String {
         guard value.isFinite else { return "—" }
         let intPart = Int(value)
@@ -162,5 +168,47 @@ class HomeViewModel: ObservableObject {
     
     func controlKeyboard() {
         UIApplication.shared.endEditing()
+    }
+}
+
+extension HomeViewModel {
+    // Calculate: hesapla + Core Data'ya kaydet + sheet aç
+    func calculateNow() {
+        // aktif yüzde
+        let percent = selectedPercent ?? (customTipPercent > 0 ? customTipPercent : (isRandomTipActive ? tipPercent : 0))
+        guard baseAmount > 0, percent > 0 else { return }
+
+        let tip = baseAmount * Double(percent) / 100.0
+        lastTipAmount = tip
+        let result = baseAmount + tip
+        totalText = String(format: "%.2f", result)
+
+        // varsayılan başlık taslağı (kullanıcı değiştirir)
+        tipSavedTitleDraft = "Tip \(percent)% • \(trimmedMoney(result)) \(currency)"
+
+        // Core Data kaydı
+        let saved = TipCoreDataManager.shared.insertTip(
+            title: tipSavedTitleDraft,
+            baseAmount: baseAmount,
+            percent: percent,
+            tipAmount: tip,
+            totalAmount: result,
+            peopleCount: peopleCount,
+            currency: currency
+        )
+        lastSavedTipID = saved.id
+
+        // küçük bir feedback gecikmesi sonra sheet aç
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            self?.showTipSavedSection = true
+        }
+
+        print("🧮 Manual calc %\(percent) → tip \(String(format: "%.2f", tip)) | total \(totalText) | saved \(saved.id)")
+    }
+
+    // Kullanıcı title'ı değiştirip kaydettiğinde çağır
+    func persistSavedTitle() {
+        guard let id = lastSavedTipID else { return }
+        TipCoreDataManager.shared.updateTitle(id: id, title: tipSavedTitleDraft)
     }
 }
