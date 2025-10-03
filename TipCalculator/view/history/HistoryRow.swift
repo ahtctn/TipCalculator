@@ -46,7 +46,7 @@ struct HistoryRow: View {
 
                 // Büyük & kalın total
                 Text(displayMoney(model.totalAmount, model.currency))
-                    .font(.title3.weight(.bold))
+                    .font(.title2.weight(.bold))
                     .foregroundStyle(.green)
             }
         }

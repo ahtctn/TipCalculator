@@ -30,8 +30,8 @@ struct HistoryView: View {
                             .foregroundStyle(.white.opacity(0.85))
                     }
                 }
-                .padding(.horizontal)
-                .padding(.top, 8)
+                .padding(.horizontal, dw(0.1))
+                .padding(.top, dw(0.1))
 
                 if filtered.isEmpty {
                     VStack(spacing: 12) {

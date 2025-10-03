@@ -64,10 +64,13 @@ struct OnboardingView: View {
         .fullScreenCover(isPresented: $showNotifSheet) {
             
             NotificationsPage {
-                UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
-                homeVM.showOnboarding = false
+                homeVM.showCurrencySheet = true
             }
             .environmentObject(homeVM)
+            .fullScreenCover(isPresented: $homeVM.showCurrencySheet) {
+                CurrencySelectionView(initial: homeVM.currency)
+                    .environmentObject(homeVM)
+            }
         }
     }
 }

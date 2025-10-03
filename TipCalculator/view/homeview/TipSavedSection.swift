@@ -142,6 +142,7 @@ extension TipSavedSection {
         Button {
             vm.persistSavedTitle()
             vm.showTipSavedSection = false
+            vm.tipSavedView = true
         } label: {
             Label("Save Title", systemImage: "checkmark.circle.fill")
                 .font(.headline).bold()

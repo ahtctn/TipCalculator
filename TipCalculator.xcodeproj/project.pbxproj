@@ -60,6 +60,7 @@
 		7B9AD0AD2E8FF5CF007A34E8 /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9AD0AC2E8FF5CF007A34E8 /* notifications.json */; };
 		7B9AD0B12E90074F007A34E8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0B02E90074F007A34E8 /* HistoryView.swift */; };
 		7B9AD0B32E900757007A34E8 /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0B22E900757007A34E8 /* HistoryRow.swift */; };
+		7B9AD0B52E9010C3007A34E8 /* CurrencySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0B42E9010C3007A34E8 /* CurrencySelectionView.swift */; };
 		7BA63BC72E0ED9CE00C71918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */; };
 		7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */; };
 		7BD2B66C2E12830B00AF8621 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B66B2E12830B00AF8621 /* SettingsView.swift */; };
@@ -84,6 +85,8 @@
 		7BD2B6AB2E12D65B00AF8621 /* ob1.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BD2B6A72E12D65B00AF8621 /* ob1.json */; };
 		7BD2B6AD2E12D65B00AF8621 /* ob3.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BD2B6A92E12D65B00AF8621 /* ob3.json */; };
 		7BD2B6AF2E12D7D900AF8621 /* ob2.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BD2B6AE2E12D7D900AF8621 /* ob2.json */; };
+		7BD9CAB12E9016920018A779 /* TipSavedMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD9CAB02E9016920018A779 /* TipSavedMessageView.swift */; };
+		7BD9CAB32E9018860018A779 /* checkmark.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BD9CAB22E9018860018A779 /* checkmark.json */; };
 		7BDFA0B12E0EE601007E6E2D /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 7BDFA0B02E0EE601007E6E2D /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +141,7 @@
 		7B9AD0AC2E8FF5CF007A34E8 /* notifications.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
 		7B9AD0B02E90074F007A34E8 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		7B9AD0B22E900757007A34E8 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
+		7B9AD0B42E9010C3007A34E8 /* CurrencySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelectionView.swift; sourceTree = "<group>"; };
 		7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculatorApp.swift; sourceTree = "<group>"; };
 		7BBFD6052E0ED81B0027E938 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +166,8 @@
 		7BD2B6A72E12D65B00AF8621 /* ob1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ob1.json; sourceTree = "<group>"; };
 		7BD2B6A92E12D65B00AF8621 /* ob3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ob3.json; sourceTree = "<group>"; };
 		7BD2B6AE2E12D7D900AF8621 /* ob2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ob2.json; sourceTree = "<group>"; };
+		7BD9CAB02E9016920018A779 /* TipSavedMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSavedMessageView.swift; sourceTree = "<group>"; };
+		7BD9CAB22E9018860018A779 /* checkmark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = checkmark.json; sourceTree = "<group>"; };
 		7BDFA0B02E0EE601007E6E2D /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -327,6 +333,7 @@
 		7B380AA82E0EDB95002FF570 /* onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				7B9AD0B42E9010C3007A34E8 /* CurrencySelectionView.swift */,
 				7B9AD0A82E8FEC5B007A34E8 /* SectionCard.swift */,
 				7B9AD0A62E8FEC3D007A34E8 /* NotificationsPage.swift */,
 				7B380AA92E0EDB9C002FF570 /* OnboardingView.swift */,
@@ -340,6 +347,7 @@
 				7B724AF52E8ED5FF0016D4BA /* TipSavedSection.swift */,
 				7B8C987C2E0F333500A66927 /* physics */,
 				7B380AB22E0EDCD0002FF570 /* HomeView.swift */,
+				7BD9CAB02E9016920018A779 /* TipSavedMessageView.swift */,
 			);
 			path = homeview;
 			sourceTree = "<group>";
@@ -458,6 +466,7 @@
 				7BD2B6A72E12D65B00AF8621 /* ob1.json */,
 				7BD2B6AE2E12D7D900AF8621 /* ob2.json */,
 				7BD2B6A92E12D65B00AF8621 /* ob3.json */,
+				7BD9CAB22E9018860018A779 /* checkmark.json */,
 			);
 			path = anim;
 			sourceTree = "<group>";
@@ -540,6 +549,7 @@
 				7BD2B6AF2E12D7D900AF8621 /* ob2.json in Resources */,
 				7B3040E62E133DE2007B9FE3 /* warning.json in Resources */,
 				7BD2B6AD2E12D65B00AF8621 /* ob3.json in Resources */,
+				7BD9CAB32E9018860018A779 /* checkmark.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +600,7 @@
 				7B24C3D92E1199540004B98F /* ProButtonView.swift in Sources */,
 				7BD2B6902E12B6FB00AF8621 /* ShareManager.swift in Sources */,
 				7B8C98842E0F364100A66927 /* Application+Keyboard.swift in Sources */,
+				7BD9CAB12E9016920018A779 /* TipSavedMessageView.swift in Sources */,
 				7B380AAA2E0EDB9C002FF570 /* OnboardingView.swift in Sources */,
 				7B724AF62E8ED5FF0016D4BA /* TipSavedSection.swift in Sources */,
 				7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */,
@@ -611,6 +622,7 @@
 				7B3013E02E8AD7330060FB38 /* CGVector+Length.swift in Sources */,
 				7B3013D62E89DA1B0060FB38 /* GameBoxView.swift in Sources */,
 				7B3013DC2E8AD7130060FB38 /* SceneBridge.swift in Sources */,
+				7B9AD0B52E9010C3007A34E8 /* CurrencySelectionView.swift in Sources */,
 				7B380AC92E0EDFE4002FF570 /* View+Shadow.swift in Sources */,
 				7B3040E42E133D95007B9FE3 /* DefaultBannerView.swift in Sources */,
 				7BD2B6822E12B47A00AF8621 /* MailManager.swift in Sources */,

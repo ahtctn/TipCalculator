@@ -42,13 +42,18 @@ class HomeViewModel: ObservableObject {
     @Published var showCustomPeople: Bool = false
     @Published var customPeopleText: String = "4"
     
-    let currency = Locale.current.currencySymbol ?? "$"
+    // MARK: Keys
+    private let currencyKey = "settings.currency.symbol"
     
+    // MARK: State
+    @Published var currency: String  // ⬅️ artık @Published ve UserDefaults’tan yükleniyor
+    @Published var showCurrencySheet: Bool = false
     
     ///MARK: CORE DATA
     @Published var showTipSavedSection: Bool = false
     @Published var tipSavedTitleDraft: String = ""   // TipSavedSection'daki TextField için
     @Published var lastSavedTipID: UUID? = nil
+    @Published var tipSavedView: Bool = false
     
     ///MARK: Credits
     @Published var credits: Int = 0
@@ -62,6 +67,9 @@ class HomeViewModel: ObservableObject {
     @Published var history: [TipModel] = []
     
     init() {
+        let saved = UserDefaults.standard.string(forKey: currencyKey)
+        self.currency = saved ?? (Locale.current.currencySymbol ?? "$")
+        
         self.showOnboarding = !UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
         loadCreditSystem()
     }
@@ -94,6 +102,13 @@ class HomeViewModel: ObservableObject {
         guard value.isFinite else { return "—" }
         let intPart = Int(value)
         return (value == Double(intPart)) ? "\(intPart)" : String(format: "%.2f", value)
+    }
+    
+    func openPaywallInSettings() {
+        settingsAppeared = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.paywallShown = true
+        }
     }
     
     func rollDice() {
@@ -265,7 +280,7 @@ extension HomeViewModel {
         
         // varsayılan başlık taslağı (kullanıcı değiştirir)
         tipSavedTitleDraft = "\(trimmedMoney(result)) \(currency) • \(percent)% tip • \(trimmedMoney(baseAmount)) \(currency) base • \(trimmedMoney(tip)) \(currency) tip"
-
+        
         
         // Core Data kaydı
         let saved = TipCoreDataManager.shared.insertTip(
@@ -362,5 +377,19 @@ extension HomeViewModel {
         credits -= amount
         persistCredits()
         return true
+    }
+}
+
+//MARK: Currency Management
+extension HomeViewModel {
+    func updateCurrency(_ symbol: String) {
+        guard symbol.isEmpty == false else { return }
+        currency = symbol
+        UserDefaults.standard.set(symbol, forKey: currencyKey)
+    }
+    
+    func completeOnboarding() {
+        UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+        showOnboarding = false
     }
 }

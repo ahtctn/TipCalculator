@@ -57,6 +57,10 @@ struct TipCalculatorView: View {
                 TipSavedSection()
                     .environmentObject(vm)
             }
+            
+            if vm.tipSavedView {
+                TipSavedMessageView()
+            }
 
         }
         // Boş yere tıklayınca klavyeyi kapat

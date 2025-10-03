@@ -28,11 +28,12 @@ struct HeaderView: View {
         icon: String = "gearshape",
         isIconV: Bool = true,
         isDoneV: Bool = false,
+        isHistoryVisible: Bool = true,
         act: @escaping () -> Void,
         pro_act: @escaping () -> Void,
         done_act: @escaping () -> Void,
         historyIcon: String = "clock.arrow.circlepath",
-        isHistoryVisible: Bool = true,
+        
         history_act: @escaping () -> Void = {}
     ) {
         self.name = name

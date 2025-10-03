@@ -38,8 +38,8 @@ final class NotificationManager {
         content.sound = .default
 
         var dateComponents = DateComponents()
-        dateComponents.hour = 16
-        dateComponents.minute = 25
+        dateComponents.hour = 20
+        dateComponents.minute = 30
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 
@@ -53,7 +53,7 @@ final class NotificationManager {
             if let error = error {
                 print("❌ Bildirim zamanlama hatası: \(error.localizedDescription)")
             } else {
-                print("📆 Günlük 19:00 bildirimi zamanlandı.")
+                print("📆 Günlük 20:30 bildirimi zamanlandı.")
             }
         }
     }
