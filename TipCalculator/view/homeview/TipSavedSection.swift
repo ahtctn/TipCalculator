@@ -52,6 +52,9 @@ struct TipSavedSection: View {
                 
                 // Özet kartı
                 summaryCard
+                Spacer()
+                
+                bottomSectionView
                 
                 Spacer()
             }
@@ -105,31 +108,60 @@ struct TipSavedSection: View {
 extension TipSavedSection {
     private var upperSectionView: some View {
         HStack(spacing: 12) {
-            Button {
-                vm.persistSavedTitle()
-                vm.showTipSavedSection = false
-            } label: {
-                Label("Save Title", systemImage: "checkmark.circle.fill")
-                    .font(.headline).bold()
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .background(.orange, in: Capsule())
-                    .foregroundStyle(.white)
-            }
             Spacer()
-            Button {
-                vm.showTipSavedSection = false
-            } label: {
-                Label("Close", systemImage: "xmark")
-                    .font(.headline)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .background(Color(.tertiarySystemBackground), in: Capsule())
-            }
-            
+            closeBtn
         }
         .padding(.bottom, 12)
         .tint(.yellow)
         .padding(.horizontal, dw(0.05))
+    }
+    
+    private var bottomSectionView: some View {
+        HStack {
+            deleteBtn
+            Spacer()
+            saveTitleBtn
+        }.padding(.horizontal, dw(0.05))
+    }
+    
+    private var deleteBtn: some View {
+        Button {
+            vm.deleteSavedTip()     // 🔴 Core Data silme işlemi
+            vm.showTipSavedSection = false
+        } label: {
+            Label("Delete", systemImage: "trash.fill")
+                .font(.headline).bold()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color.red, in: Capsule())
+                .foregroundStyle(.white)
+        }
+
+    }
+    private var saveTitleBtn: some View {
+        Button {
+            vm.persistSavedTitle()
+            vm.showTipSavedSection = false
+        } label: {
+            Label("Save Title", systemImage: "checkmark.circle.fill")
+                .font(.headline).bold()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(.orange, in: Capsule())
+                .foregroundStyle(.white)
+        }
+    }
+    
+    private var closeBtn: some View {
+        Button {
+            vm.showTipSavedSection = false
+        } label: {
+            Label("Close", systemImage: "xmark")
+                .font(.headline)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color(.tertiarySystemBackground), in: Capsule())
+        }
+        
     }
 }

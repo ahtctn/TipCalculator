@@ -65,6 +65,44 @@ struct GameBoxView: View {
         return bridge.isBallActive ? "Ball in play…" : "Drop"
     }
     
+    private var creditBtn: some View {
+        Group {
+            if AccessControlManager.shouldShowPaywall() {
+                Button {
+                    homeVM.presentGameBox = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        homeVM.paywallShown = true
+                    }
+                } label: {
+                    HStack(spacing: 10) {
+                        Image(systemName: "gift.fill")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(.white)
+
+                        Text("\(homeVM.credits)")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
+                    }
+                    .frame(width: dw(0.1), height: dw(0.03))
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .strokeBorder(Color.yellow, lineWidth: 2)
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(Color.black.opacity(0.6))
+                            )
+                    )
+                    .shadow(color: Color.yellow.opacity(0.4), radius: 6, x: 0, y: 4)
+                }
+            }
+        }
+        
+    }
+    
     private func startCountdownAndDrop() {
         guard countdown == nil, bridge.isBallActive == false else { return }
 
@@ -91,6 +129,7 @@ struct GameBoxView: View {
                 countdownTimer = nil
                 countdown = nil
                 scene.dropBall()
+                homeVM.decreaseCredit()
             }
         }
     }
@@ -104,15 +143,16 @@ struct GameBoxView: View {
     
     private func commitSelectionToHomeIfNeeded() {
         guard let p = bridge.landingPercent else { return }
-        let raw = homeVM.totalText.replacingOccurrences(of: ",", with: ".")
-        guard let base = Double(raw), base > 0 else { return }
+        let base = baseAtLanding > 0 ? baseAtLanding : homeVM.baseAmount
+        guard base > 0 else { return }
 
-        // TipCalculator tarafına sadece kapanışta uygula
         homeVM.selectedPercent = p
         homeVM.tipPercent = p
+
         let newTotal = base * (1.0 + Double(p)/100.0)
         homeVM.totalText = String(format: "%.2f", newTotal)
     }
+
 
 }
 
@@ -140,6 +180,7 @@ extension GameBoxView {
         VStack {
             HStack {
                 xmarkSection
+                creditBtn
                 Spacer()
                 HStack(spacing: 6) {
                     Text("TOTAL")
@@ -268,7 +309,14 @@ extension GameBoxView {
     private var dropButtonSection: some View {
         VStack {
             Button {
-                startCountdownAndDrop()
+                if AccessControlManager.shouldShowPaywall() && homeVM.credits <= 0 {
+                    homeVM.presentGameBox = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        homeVM.paywallShown = true
+                    }
+                } else {
+                    startCountdownAndDrop()
+                }
             } label: {
                 HStack(spacing: 8) {
                     Image(systemName: "play.circle.fill").imageScale(.large)

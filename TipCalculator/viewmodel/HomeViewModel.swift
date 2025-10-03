@@ -46,6 +46,44 @@ class HomeViewModel: ObservableObject {
     @Published var tipSavedTitleDraft: String = ""   // TipSavedSection'daki TextField için
     @Published var lastSavedTipID: UUID? = nil
     
+    ///MARK: Credits
+    @Published var credits: Int = 0
+    private let maxCredits = 1
+    private let creditsCountKey = "credits.count.v1"
+    private let creditsLastKey  = "credits.lastDate.v1"
+    private let creditsInitializedKey = "credits.initialized.v1" // ilk kredi verildi mi?
+    private var lastCreditRefresh: Date = .distantPast
+    
+    
+    init() {
+        self.showOnboarding = !UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
+        loadCreditSystem()
+    }
+    
+    func loadCreditSystem() {
+        let d = UserDefaults.standard
+        
+        // 1) İlk kurulum: daha önce kredi verildiyse tekrar verme
+        if !d.bool(forKey: creditsInitializedKey) {
+            credits = 1                          // sadece ilk açılışta 1 kredi
+            d.set(true, forKey: creditsInitializedKey)
+            persistCredits()
+        } else {
+            credits = max(0, d.integer(forKey: creditsCountKey))
+        }
+        migrateCreditKeysIfNeeded()
+        // 2) GÜNLÜK REFRESH YOK: aşağıdakileri KALDIR
+        // refreshCreditsIfNeeded()
+        // NotificationCenter.default.addObserver(... refreshCreditsIfNeeded ...)
+    }
+    
+    func migrateCreditKeysIfNeeded() {
+        let d = UserDefaults.standard
+        // Artık günlük yenileme kullanmıyoruz; tarihi sıfırlayabilirsin
+        d.removeObject(forKey: creditsLastKey)
+        // creditsCountKey kalsın; mevcut kredi değeri korunur
+    }
+    
     func trimmedMoney(_ value: Double) -> String {
         guard value.isFinite else { return "—" }
         let intPart = Int(value)
@@ -210,5 +248,73 @@ extension HomeViewModel {
     func persistSavedTitle() {
         guard let id = lastSavedTipID else { return }
         TipCoreDataManager.shared.updateTitle(id: id, title: tipSavedTitleDraft)
+    }
+}
+ 
+
+extension HomeViewModel {
+    /// Son kaydedilen (TipSavedSection'da görüntülenen) bahşiş kaydını siler.
+    func deleteSavedTip() {
+        guard let id = lastSavedTipID else {
+            print("⚠️ deleteSavedTip: lastSavedTipID nil")
+            return
+        }
+
+        // Haptic (opsiyonel ama hoş)
+        let gen = UINotificationFeedbackGenerator()
+        gen.notificationOccurred(.warning)
+
+        // Core Data'dan sil
+        TipCoreDataManager.shared.deleteTip(id: id)
+        print("🗑️ Deleted tip id: \(id)")
+
+        // Lokal state temizliği
+        lastSavedTipID = nil
+        tipSavedTitleDraft = ""
+        // İstersen hesap özetini de sıfırlarsın:
+        // selectedPercent = nil
+        // totalText = String(format: "%.2f", baseAmount)
+    }
+}
+
+extension HomeViewModel {
+    @discardableResult
+    func useOneCredit() -> Bool {
+        guard credits > 0 else { return false }
+        credits -= 1
+        persistCredits()
+        return true
+    }
+    
+    // (Opsiyonel) Krediyi manuel setlemek istersen
+    func setCredits(_ value: Int) {
+        credits = max(0, value)
+        persistCredits()
+    }
+    
+    private func persistCredits() {
+        let d = UserDefaults.standard
+        d.set(credits, forKey: creditsCountKey)
+        d.set(lastCreditRefresh, forKey: creditsLastKey)
+    }
+    
+    @discardableResult
+    func increaseCredit(by amount: Int = 1) -> Bool {
+        guard amount > 0 else { return false }
+        let newValue = min(maxCredits, credits + amount)
+        guard newValue != credits else { return false } // zaten limitte
+        credits = newValue
+        persistCredits()
+        return true
+    }
+    
+    /// Krediyi azaltır; 0’ın altına düşürmez. Değiştiyse true döner.
+    @discardableResult
+    func decreaseCredit(by amount: Int = 1) -> Bool {
+        guard amount > 0 else { return false }
+        guard credits >= amount else { return false }
+        credits -= amount
+        persistCredits()
+        return true
     }
 }
