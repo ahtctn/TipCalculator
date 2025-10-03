@@ -14,6 +14,9 @@ struct HomeView: View {
             AnimatedBackgroundView()
             TipCalculatorView()
             bannerView
+            if vm.tipSavedView {
+                TipSavedMessageView()
+            }
         }
         
         .environmentObject(vm)
@@ -26,6 +29,7 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $vm.historyShown) {
             HistoryView().environmentObject(vm)
         }
+        
     }
 }
 

@@ -14,8 +14,8 @@
             filePath = "TipCalculator/view/calculator/TipCalculatorView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "saveTipBtn"
             landmarkType = "24">
          </BreakpointContent>
