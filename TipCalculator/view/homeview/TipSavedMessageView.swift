@@ -12,7 +12,10 @@ struct TipSavedMessageView: View {
     @EnvironmentObject var homeVM: HomeViewModel
     var body: some View {
         ZStack {
-            Color.black.opacity(0.45).onTapGesture {
+            Color.black
+                .opacity(0.45)
+                .ignoresSafeArea(.all)
+                .onTapGesture {
                 homeVM.tipSavedView = false
             }
             RoundedRectangle(cornerRadius: 24)
