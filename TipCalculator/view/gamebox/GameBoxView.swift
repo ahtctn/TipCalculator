@@ -23,12 +23,13 @@ struct GameBoxView: View {
         ZStack {
             AnimatedBackgroundView().ignoresSafeArea()
             spriteSection
+                
             VStack {
                 slotTitleSection
                 slotPayoutSection
             }
             countdownSection
-            dropButtonSection
+            
             totalBadgeSection
         }
         .animation(.spring(response: 0.35, dampingFraction: 0.9), value: bridge.landingText)
@@ -43,8 +44,13 @@ struct GameBoxView: View {
             countdownTimer = nil
             countdown = nil
             bridge.landingText = nil
-            scene.resetAll()     // sahneyi temizle, başa dön
-            commitSelectionToHomeIfNeeded()
+            scene.resetAll()
+
+            if let p = bridge.landingPercent {
+                homeVM.selectedPercent = p
+                homeVM.tipPercent = p
+                homeVM.commitSelectionToHomeIfNeeded(percent: p)
+            }
         }
         
         .onChange(of: bridge.landingPercent) { newP, _ in
@@ -57,6 +63,9 @@ struct GameBoxView: View {
             withAnimation(.easeOut(duration: 0.9)) {
                 animatedTotal = target
             }
+        }
+        .overlay {
+            dropButtonSection
         }
     }
     
@@ -141,17 +150,7 @@ struct GameBoxView: View {
         return Double(raw) ?? 0
     }
     
-    private func commitSelectionToHomeIfNeeded() {
-        guard let p = bridge.landingPercent else { return }
-        let base = baseAtLanding > 0 ? baseAtLanding : homeVM.baseAmount
-        guard base > 0 else { return }
-
-        homeVM.selectedPercent = p
-        homeVM.tipPercent = p
-
-        let newTotal = base * (1.0 + Double(p)/100.0)
-        homeVM.totalText = String(format: "%.2f", newTotal)
-    }
+    
 
 
 }
@@ -163,8 +162,13 @@ struct GameBoxView: View {
 
 extension GameBoxView {
     private var xmarkSection: some View {
-        XMarkView {
+        Button {
             homeVM.presentGameBox = false
+        } label: {
+            Image(systemName: "xmark")
+                .font(.system(size: 24, weight: .bold))
+                .padding()
+                .foregroundColor(ColorHandler.makeColor(.lightC))
         }
         .zIndex(2)
     }
@@ -175,41 +179,26 @@ extension GameBoxView {
         
     }
     
+    
+    
     // sağ üst total rozet
     private var totalBadgeSection: some View {
         VStack {
             HStack {
                 xmarkSection
-                creditBtn
+                
                 Spacer()
-                HStack(spacing: 6) {
-                    Text("TOTAL")
-                        .font(.caption.bold())
-                        .foregroundStyle(.yellow.opacity(0.9))
-
-                    Text(homeVM.totalText.isEmpty ? "$0.00" : homeVM.totalText)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.white)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
+                
+                HStack(alignment: .bottom) {
+                    creditBtn
+                    totalSection
                 }
-                .padding(.vertical, 8)
-                .padding(.horizontal, 12)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .strokeBorder(Color.yellow, lineWidth: 1.5)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.black.opacity(0.45))
-                        )
-                )
-                .shadow(color: .yellow.opacity(0.25), radius: 6, x: 0, y: 3)
-                .padding(.trailing, 10)
-                .padding(.top, 5)
             }
             Spacer()
+            
         }
         .zIndex(2)
+        
     }
  
     private var slotPayoutSection: some View {
@@ -258,7 +247,32 @@ extension GameBoxView {
         }
     }
 
+    private var totalSection: some View {
+        HStack(spacing: 6) {
+            Text("TOTAL")
+                .font(.caption.bold())
+                .foregroundStyle(.mint.opacity(0.9))
 
+            Text(formatDisplayAmount(homeVM.totalText))
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(.white)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .strokeBorder(Color.mint, lineWidth: 1.5)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.black.opacity(0.45))
+                )
+        )
+        .shadow(color: .mint.opacity(0.25), radius: 6, x: 0, y: 3)
+        .padding(.trailing, 10)
+        .padding(.top, 5)
+    }
     
     private var slotTitleSection: some View {
         Group {
@@ -308,6 +322,7 @@ extension GameBoxView {
     
     private var dropButtonSection: some View {
         VStack {
+            Spacer()
             Button {
                 if AccessControlManager.shouldShowPaywall() && homeVM.credits <= 0 {
                     homeVM.presentGameBox = false
@@ -330,8 +345,22 @@ extension GameBoxView {
             .disabled(bridge.isBallActive || countdown != nil)
             .padding(.bottom, 24)
             .foregroundStyle(.orange)
-            Spacer()
+            Spacer().frame(height: dw(0.25))
         }
         .padding(dw(0.035))
+        .opacity(!bridge.isBallActive ? 1 : 0.00000001)
     }
+    
+    func formatDisplayAmount(_ text: String) -> String {
+        if let value = Double(text) {
+            let intPart = Int(value)
+            if value == Double(intPart) {
+                return "\(homeVM.currency)\(intPart)"
+            } else {
+                return String(format: "\(homeVM.currency)%.2f", value)
+            }
+        }
+        return "$\(text)"
+    }
+
 }

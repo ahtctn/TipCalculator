@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 import UIKit
+import CoreData
+internal import SwiftUICore
 
 class HomeViewModel: ObservableObject {
     // MARK: - App State
@@ -16,7 +18,9 @@ class HomeViewModel: ObservableObject {
     
     @Published var settingsAppeared: Bool = false
     @Published var baseAmount: Double = 0.0
+    
     @Published var totalText: String = ""
+    var isProgrammaticUpdate = false
     
     @Published var selectedPercent: Int? = nil
     @Published var tipPercent: Int = 0
@@ -54,6 +58,8 @@ class HomeViewModel: ObservableObject {
     private let creditsInitializedKey = "credits.initialized.v1" // ilk kredi verildi mi?
     private var lastCreditRefresh: Date = .distantPast
     
+    @Published var historyShown = false
+    @Published var history: [TipModel] = []
     
     init() {
         self.showOnboarding = !UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
@@ -151,15 +157,36 @@ class HomeViewModel: ObservableObject {
     }
     
     func textFieldOnChange(_ newValue: String) {
-        if !isRandomTipActive && selectedPercent == nil {
-            let cleaned = newValue.replacingOccurrences(of: ",", with: ".")
-            if let value = Double(cleaned) {
-                baseAmount = value * 10
-            } else {
-                baseAmount = 0
+        let cleaned = newValue.replacingOccurrences(of: ",", with: ".")
+        guard let value = Double(cleaned) else {
+            baseAmount = 0
+            totalText = ""
+            return
+        }
+        
+        baseAmount = value
+        
+        // Eğer seçili bir yüzde varsa otomatik total hesapla
+        if let percent = selectedPercent ?? (customTipPercent > 0 ? customTipPercent : nil) {
+            let tip = baseAmount * Double(percent) / 100.0
+            let total = baseAmount + tip
+            
+            isProgrammaticUpdate = true
+            totalText = String(format: "%.2f", total)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.isProgrammaticUpdate = false
+            }
+        } else {
+            // yüzde yoksa sadece baseAmount göster
+            isProgrammaticUpdate = true
+            totalText = String(format: "%.2f", baseAmount)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.isProgrammaticUpdate = false
             }
         }
     }
+    
+    
     
     func resetRandomTip() {
         isRandomTipActive = false
@@ -186,6 +213,21 @@ class HomeViewModel: ObservableObject {
             print("🫧 (klavye kapandı) %\(value) girildi. Yeni total: \(totalText)")
         }
     }
+    
+    func commitSelectionToHomeIfNeeded(percent: Int? = nil) {
+        let p = percent ?? selectedPercent ?? tipPercent
+        guard baseAmount > 0, p > 0 else { return }
+        
+        let tip = baseAmount * Double(p) / 100.0
+        let total = baseAmount + tip
+        
+        isProgrammaticUpdate = true
+        totalText = String(format: "%.2f", total)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.isProgrammaticUpdate = false
+        }
+    }
+    
     
     func bubblePercentAction(_ percent: Int) {
         resetRandomTip()
@@ -215,15 +257,16 @@ extension HomeViewModel {
         // aktif yüzde
         let percent = selectedPercent ?? (customTipPercent > 0 ? customTipPercent : (isRandomTipActive ? tipPercent : 0))
         guard baseAmount > 0, percent > 0 else { return }
-
+        
         let tip = baseAmount * Double(percent) / 100.0
         lastTipAmount = tip
         let result = baseAmount + tip
         totalText = String(format: "%.2f", result)
-
+        
         // varsayılan başlık taslağı (kullanıcı değiştirir)
-        tipSavedTitleDraft = "Tip \(percent)% • \(trimmedMoney(result)) \(currency)"
+        tipSavedTitleDraft = "\(trimmedMoney(result)) \(currency) • \(percent)% tip • \(trimmedMoney(baseAmount)) \(currency) base • \(trimmedMoney(tip)) \(currency) tip"
 
+        
         // Core Data kaydı
         let saved = TipCoreDataManager.shared.insertTip(
             title: tipSavedTitleDraft,
@@ -235,45 +278,48 @@ extension HomeViewModel {
             currency: currency
         )
         lastSavedTipID = saved.id
-
+        
         // küçük bir feedback gecikmesi sonra sheet aç
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.showTipSavedSection = true
         }
-
+        loadHistory()
         print("🧮 Manual calc %\(percent) → tip \(String(format: "%.2f", tip)) | total \(totalText) | saved \(saved.id)")
     }
-
+    
     // Kullanıcı title'ı değiştirip kaydettiğinde çağır
     func persistSavedTitle() {
         guard let id = lastSavedTipID else { return }
         TipCoreDataManager.shared.updateTitle(id: id, title: tipSavedTitleDraft)
+        loadHistory() // ✔️ title değişince history’yi güncelle
+    }
+    
+    func loadHistory() {
+        history = TipCoreDataManager.shared.fetchTips()
     }
 }
- 
+
 
 extension HomeViewModel {
+    func deleteHistory(at offsets: IndexSet) {
+        for i in offsets {
+            TipCoreDataManager.shared.deleteTip(id: history[i].id)
+        }
+        history.remove(atOffsets: offsets)
+    }
+    
+    func deleteHistory(id: UUID) {
+        TipCoreDataManager.shared.deleteTip(id: id)
+        loadHistory()
+    }
+    
     /// Son kaydedilen (TipSavedSection'da görüntülenen) bahşiş kaydını siler.
     func deleteSavedTip() {
-        guard let id = lastSavedTipID else {
-            print("⚠️ deleteSavedTip: lastSavedTipID nil")
-            return
-        }
-
-        // Haptic (opsiyonel ama hoş)
-        let gen = UINotificationFeedbackGenerator()
-        gen.notificationOccurred(.warning)
-
-        // Core Data'dan sil
+        guard let id = lastSavedTipID else { return }
         TipCoreDataManager.shared.deleteTip(id: id)
-        print("🗑️ Deleted tip id: \(id)")
-
-        // Lokal state temizliği
         lastSavedTipID = nil
         tipSavedTitleDraft = ""
-        // İstersen hesap özetini de sıfırlarsın:
-        // selectedPercent = nil
-        // totalText = String(format: "%.2f", baseAmount)
+        loadHistory() // ✔️ silince güncelle
     }
 }
 

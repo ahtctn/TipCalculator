@@ -25,6 +25,7 @@ struct TipCalculatorApp: App {
         getPurchase()
         AccessControlManager.initializePromotionStatusIfNeeded()
         MobileAds.shared.start(completionHandler: { _ in })
+        NotificationManager.shared.scheduleDailyNotificationWithRandomCompose()
     }
     
     private func getPurchase() {

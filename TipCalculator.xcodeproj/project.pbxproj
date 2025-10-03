@@ -54,6 +54,12 @@
 		7B8C98802E0F334C00A66927 /* TransparentSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C987F2E0F334C00A66927 /* TransparentSpriteView.swift */; };
 		7B8C98822E0F336700A66927 /* TipBubblePhysicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98812E0F336700A66927 /* TipBubblePhysicsView.swift */; };
 		7B8C98842E0F364100A66927 /* Application+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8C98832E0F364100A66927 /* Application+Keyboard.swift */; };
+		7B9AD0A72E8FEC3D007A34E8 /* NotificationsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0A62E8FEC3D007A34E8 /* NotificationsPage.swift */; };
+		7B9AD0A92E8FEC5B007A34E8 /* SectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0A82E8FEC5B007A34E8 /* SectionCard.swift */; };
+		7B9AD0AB2E8FF527007A34E8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0AA2E8FF527007A34E8 /* NotificationManager.swift */; };
+		7B9AD0AD2E8FF5CF007A34E8 /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9AD0AC2E8FF5CF007A34E8 /* notifications.json */; };
+		7B9AD0B12E90074F007A34E8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0B02E90074F007A34E8 /* HistoryView.swift */; };
+		7B9AD0B32E900757007A34E8 /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9AD0B22E900757007A34E8 /* HistoryRow.swift */; };
 		7BA63BC72E0ED9CE00C71918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */; };
 		7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */; };
 		7BD2B66C2E12830B00AF8621 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2B66B2E12830B00AF8621 /* SettingsView.swift */; };
@@ -126,6 +132,12 @@
 		7B8C987F2E0F334C00A66927 /* TransparentSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentSpriteView.swift; sourceTree = "<group>"; };
 		7B8C98812E0F336700A66927 /* TipBubblePhysicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipBubblePhysicsView.swift; sourceTree = "<group>"; };
 		7B8C98832E0F364100A66927 /* Application+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Application+Keyboard.swift"; sourceTree = "<group>"; };
+		7B9AD0A62E8FEC3D007A34E8 /* NotificationsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPage.swift; sourceTree = "<group>"; };
+		7B9AD0A82E8FEC5B007A34E8 /* SectionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCard.swift; sourceTree = "<group>"; };
+		7B9AD0AA2E8FF527007A34E8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		7B9AD0AC2E8FF5CF007A34E8 /* notifications.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
+		7B9AD0B02E90074F007A34E8 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		7B9AD0B22E900757007A34E8 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
 		7BA63BC32E0ED9CE00C71918 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BA63BC52E0ED9CE00C71918 /* TipCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalculatorApp.swift; sourceTree = "<group>"; };
 		7BBFD6052E0ED81B0027E938 /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +213,7 @@
 		7B380A932E0EDA9A002FF570 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				7B9AD0AF2E90074F007A34E8 /* history */,
 				7B3013D42E89DA130060FB38 /* gamebox */,
 				7BD2B6752E128D5800AF8621 /* ad */,
 				7BD2B66A2E1282FC00AF8621 /* settings */,
@@ -280,6 +293,7 @@
 		7B380A9A2E0EDA9A002FF570 /* manager */ = {
 			isa = PBXGroup;
 			children = (
+				7B9AD0AA2E8FF527007A34E8 /* NotificationManager.swift */,
 				7B724AEF2E8ED5940016D4BA /* TipCoreDataManager.swift */,
 				7B6CF44B2E8C1C120012B223 /* Haptics.swift */,
 				7BD2B69E2E12D30600AF8621 /* LottieAnimationManager.swift */,
@@ -313,6 +327,8 @@
 		7B380AA82E0EDB95002FF570 /* onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				7B9AD0A82E8FEC5B007A34E8 /* SectionCard.swift */,
+				7B9AD0A62E8FEC3D007A34E8 /* NotificationsPage.swift */,
 				7B380AA92E0EDB9C002FF570 /* OnboardingView.swift */,
 			);
 			path = onboarding;
@@ -375,6 +391,15 @@
 			path = physics;
 			sourceTree = "<group>";
 		};
+		7B9AD0AF2E90074F007A34E8 /* history */ = {
+			isa = PBXGroup;
+			children = (
+				7B9AD0B22E900757007A34E8 /* HistoryRow.swift */,
+				7B9AD0B02E90074F007A34E8 /* HistoryView.swift */,
+			);
+			path = history;
+			sourceTree = "<group>";
+		};
 		7BA63BC62E0ED9CE00C71918 /* TipCalculator */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +453,7 @@
 		7BD2B6AA2E12D65B00AF8621 /* anim */ = {
 			isa = PBXGroup;
 			children = (
+				7B9AD0AC2E8FF5CF007A34E8 /* notifications.json */,
 				7B3040E52E133DE2007B9FE3 /* warning.json */,
 				7BD2B6A72E12D65B00AF8621 /* ob1.json */,
 				7BD2B6AE2E12D7D900AF8621 /* ob2.json */,
@@ -510,6 +536,7 @@
 				7BA63BC72E0ED9CE00C71918 /* Assets.xcassets in Resources */,
 				7BDFA0B12E0EE601007E6E2D /* AppIcon.icon in Resources */,
 				7BD2B6AB2E12D65B00AF8621 /* ob1.json in Resources */,
+				7B9AD0AD2E8FF5CF007A34E8 /* notifications.json in Resources */,
 				7BD2B6AF2E12D7D900AF8621 /* ob2.json in Resources */,
 				7B3040E62E133DE2007B9FE3 /* warning.json in Resources */,
 				7BD2B6AD2E12D65B00AF8621 /* ob3.json in Resources */,
@@ -540,12 +567,17 @@
 				7B24C3F82E119C110004B98F /* AdvantageRow.swift in Sources */,
 				7B724AF42E8ED5A70016D4BA /* TipModel.swift in Sources */,
 				7BD2B6942E12B83200AF8621 /* RateHelper.swift in Sources */,
+				7B9AD0B12E90074F007A34E8 /* HistoryView.swift in Sources */,
+				7B9AD0A92E8FEC5B007A34E8 /* SectionCard.swift in Sources */,
 				7B8C98802E0F334C00A66927 /* TransparentSpriteView.swift in Sources */,
 				7B380AC12E0EDD55002FF570 /* ColorHelper.swift in Sources */,
 				7BA63BC92E0ED9CE00C71918 /* TipCalculatorApp.swift in Sources */,
 				7BD2B69B2E12D2D000AF8621 /* OnboardingViewModel.swift in Sources */,
+				7B9AD0AB2E8FF527007A34E8 /* NotificationManager.swift in Sources */,
+				7B9AD0A72E8FEC3D007A34E8 /* NotificationsPage.swift in Sources */,
 				7B24C3DB2E1199D20004B98F /* AccessControlManager.swift in Sources */,
 				7BD2B69F2E12D30600AF8621 /* LottieAnimationManager.swift in Sources */,
+				7B9AD0B32E900757007A34E8 /* HistoryRow.swift in Sources */,
 				7B380AB92E0EDCF8002FF570 /* LoadingSplashView.swift in Sources */,
 				7BD2B6862E12B4B600AF8621 /* UIDevice+AppModel.swift in Sources */,
 				7B724AF02E8ED5940016D4BA /* TipCoreDataManager.swift in Sources */,

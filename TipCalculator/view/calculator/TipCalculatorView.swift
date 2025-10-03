@@ -35,6 +35,9 @@ struct TipCalculatorView: View {
             
             VStack(spacing: 20) {
                 HeaderView { vm.settingsAppeared = true } pro_act: { vm.paywallShown = true } done_act: { }
+                history_act: {
+                    vm.historyShown = true
+                }
                 //bannerView
                 upperSectionView
                 totalCircleView
@@ -182,30 +185,33 @@ extension TipCalculatorView {
 //MARK: Upper Section View {
 extension TipCalculatorView {
     private var upperSectionView: some View {
-        HStack {
+        HStack(alignment: .top) {
             randomTipSection
             Spacer()
-            calculateButton
-            Spacer()
-            splitBillSection
+            
+            VStack(alignment: .trailing) {
+                splitBillSection
+                saveTipBtn
+            }
             
         }
         .padding(.horizontal)
     }
     
-    private var calculateButton: some View {
+    private var saveTipBtn: some View {
         Button {
             if vm.totalText.isEmpty {
                 vm.bannerShown = true
-            } else {
-                vm.showTipSavedSection = true
+            } else if vm.baseAmount > 0,
+                      (vm.selectedPercent != nil || vm.customTipPercent > 0 || vm.isRandomTipActive) {
+                vm.calculateNow()
             }
             
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: "checkmark.seal.fill")
                     .imageScale(.medium)
-                Text("Tip")
+                Text("Save Tip")
                     .font(.headline.weight(.semibold))
             }
             .padding(.horizontal, 14)
@@ -249,18 +255,26 @@ extension TipCalculatorView {
     private var priceTextField: some View {
         TextField("Price", text: Binding(
             get: {
-                // Görünüm için formatlanmış değer
+                // Eğer Double parse edilebiliyorsa
                 if let value = Double(vm.totalText) {
                     let intPart = Int(value)
-                    if value == Double(intPart) { // .00 ise
-                        return String(intPart)
+                    if value == Double(intPart) {
+                        // ondalık .00'sa sadece tam sayı göster
+                        return "\(intPart)"
                     } else {
+                        // küsurat varsa iki haneli göster
                         return String(format: "%.2f", value)
                     }
                 }
+                // parse edilemiyorsa olduğu gibi döndür
                 return vm.totalText
             },
-            set: { vm.totalText = $0 }
+            set: { newValue in
+                vm.totalText = newValue
+                if !vm.isProgrammaticUpdate {
+                    vm.textFieldOnChange(newValue)
+                }
+            }
         ))
         .keyboardType(.decimalPad)
         .multilineTextAlignment(.center)
@@ -269,10 +283,8 @@ extension TipCalculatorView {
         .onTapGesture {
             vm.textfieldTapGesture()
         }
-        .onChange(of: vm.totalText) { newValue, _ in
-            vm.textFieldOnChange(newValue)
-        }
     }
+
 
     
     private var textFieldComponents: some View {

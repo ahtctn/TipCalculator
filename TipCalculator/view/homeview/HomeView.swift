@@ -23,6 +23,9 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $vm.settingsAppeared) {
             SettingsView().environmentObject(vm)
         }
+        .fullScreenCover(isPresented: $vm.historyShown) {
+            HistoryView().environmentObject(vm)
+        }
     }
 }
 

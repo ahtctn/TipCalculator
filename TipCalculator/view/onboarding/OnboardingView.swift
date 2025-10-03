@@ -13,6 +13,7 @@ struct OnboardingView: View {
     @StateObject private var viewModel = OnboardingViewModel()
     @EnvironmentObject var homeVM: HomeViewModel
     @State private var currentIndex = 0
+    @State private var showNotifSheet = false
     
     var body: some View {
         ZStack {
@@ -51,13 +52,22 @@ struct OnboardingView: View {
                             currentIndex += 1
                         } else {
                             // Navigate to next view
-                            UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
-                            homeVM.showOnboarding = false
+                            showNotifSheet = true
+                            
+                            
                         }
                     }
                     
                 }
             }
+        }
+        .fullScreenCover(isPresented: $showNotifSheet) {
+            
+            NotificationsPage {
+                UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+                homeVM.showOnboarding = false
+            }
+            .environmentObject(homeVM)
         }
     }
 }
